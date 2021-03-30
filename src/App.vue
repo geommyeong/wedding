@@ -17,10 +17,7 @@ export default {
     Greetings,
     Connect,
     Maps
-  },
-  // created() {
-  //   console.log(process.env.VUE_APP_API)
-  // }
+  }
 }
 </script>
 

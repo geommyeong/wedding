@@ -22,7 +22,7 @@ export default {
     } else {
       const script = document.createElement('script')
       script.onload = () => kakao.maps.load(this.initMap);
-      script.src = `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_API_KEY}`
+      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_API_KEY}`
       document.head.appendChild(script)
     }
   },
@@ -68,7 +68,6 @@ export default {
     //     spriteOrigin: new kakao.maps.Point(10, 72),
     //     spriteSize: new kakao.maps.Size(36, 98)
     //   }
-
     //  const markerImage = new kakao.maps.MarkerImage(markerImageSrc, imageSize, imageOptions)
 
     //  carParkPositions.forEach( pos => {
