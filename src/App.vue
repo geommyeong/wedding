@@ -1,17 +1,26 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  !!!
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Greetings />
+    <Connect />
+    <Maps />
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Greetings from './components/Greetings.vue'
+import Maps from './components/Maps.vue'
+import Connect from './components/Connect.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Greetings,
+    Connect,
+    Maps
+  },
+  // created() {
+  //   console.log(process.env.VUE_APP_API)
+  // }
 }
 </script>
 
