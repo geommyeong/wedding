@@ -3,6 +3,7 @@
     <Greetings />
     <Connect />
     <Maps />
+    <Visitor />
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 </template>
 
@@ -10,13 +11,15 @@
 import Greetings from './components/Greetings.vue'
 import Maps from './components/Maps.vue'
 import Connect from './components/Connect.vue'
+import Visitor from './components/Visitor.vue'
 
 export default {
   name: 'App',
   components: {
     Greetings,
     Connect,
-    Maps
+    Maps,
+    Visitor
   }
 }
 </script>
