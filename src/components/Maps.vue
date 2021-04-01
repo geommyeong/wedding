@@ -52,10 +52,6 @@ export default {
     }
   },
   methods: {
-    // onLoad(map) {
-    //   this.map = map
-    //   this.setParkingMarker()
-    // },
     initMap() {
       const container = document.querySelector('#map')
       const options = {
