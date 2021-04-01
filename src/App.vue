@@ -1,18 +1,13 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-    <router-link :to="`${baseUrl}`">Home!{{ baseUrl }}</router-link>
-    <router-link :to="`${baseUrl}card`">Card</router-link>
+    <router-link to="/">Home</router-link>
+    <router-link to="/card">Card</router-link>
     <router-view />
 </template>
 
 <script>
 export default {
   name: 'App',
-  data: () => {
-    return {
-      baseUrl: process.env.BASE_URL
-    }
-  },
 }
 </script>
 

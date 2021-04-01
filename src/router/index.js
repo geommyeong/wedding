@@ -1,7 +1,7 @@
 import { createWebHashHistory, createRouter } from 'vue-router'
 import Home from '@/pages/Home.vue'
 import Card from '@/pages/Card.vue'
-// import NotFound from '@/pages/NotFound.vue'
+import NotFound from '@/pages/NotFound.vue'
 
 const routes = [
   {
@@ -14,10 +14,10 @@ const routes = [
     name: 'Card',
     component: Card,
   },
-  // {
-  //   path: '/:catchAll(.*)',
-  //   component: NotFound
-  // }
+  {
+    path: '/:catchAll(.*)',
+    component: NotFound
+  }
 ];
 
 const router = createRouter({
