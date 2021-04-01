@@ -1,0 +1,30 @@
+@import './_variables.scss';
+@import './_reset.scss';
+
+@font-face {
+	font-family: 'Noto-Serif-Bold';
+	font-weight: 700;
+	src: url('/fonts/NotoSerifKR-Bold.eot');
+	src: url('/fonts/NotoSerifKR-Bold.eot?#iefix') format('embedded-opentype'),
+		url('/fonts/NotoSerifKR-Bold.woff2') format('woff2'),
+		url('/fonts/NotoSerifKR-Bold.woff') format('woff'),
+		url('/fonts/NotoSerifKR-Bold.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Noto-Serif';
+	font-weight: 500;
+	src: url('/fonts/NotoSerifKR-Medium.otf');
+	src: url('/fonts/NotoSerifKR-Medium.otf?#iefix') format('embedded-opentype'),
+		url('/fonts/NotoSerifKR-Medium.woff2') format('woff2'),
+		url('/fonts/NotoSerifKR-Medium.woff') format('woff');
+}
+
+body {
+  background: $bg-color;
+  font-family: 'Noto-Serif';
+}
+
+#app {
+  width: 100%;
+  padding: 0 15px 0;
+}

@@ -1,4 +1,5 @@
 <template>
+  <Visitor />
   <Hello />
   <Greetings
     groom-father="황두영"
@@ -11,7 +12,6 @@
   <Connect />
   <Maps />
   <Photos />
-  <Visitor />
 </template>
 <script>
 import Hello from '../components/Hello.vue'

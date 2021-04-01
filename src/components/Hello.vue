@@ -33,9 +33,17 @@ export default {
 </script>
 <style lang="scss" scoped>
   .hello {
+    }
     .title {
       h1 {
         font-size: 34px;
+      }
+    }
+  .frames {
+    width: 100%;
+    figure {
+      img {
+        width: 100%;
       }
     }
   }
