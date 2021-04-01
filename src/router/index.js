@@ -5,12 +5,12 @@ import Card from '@/pages/Card.vue'
 
 const routes = [
   {
-    path: process.env.BASE_URL,
+    path: '/',
     name: 'Home',
     component: Home,
   },
   {
-    path: `${process.env.BASE_URL}/card`,
+    path: '/card',
     name: 'Card',
     component: Card,
   },
