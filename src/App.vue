@@ -1,6 +1,6 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-    <router-link :to="`${baseUrl}`">Home!</router-link>
+    <router-link :to="`${baseUrl}`">Home!{{ baseUrl }}</router-link>
     <router-link :to="`${baseUrl}card`">Card</router-link>
     <router-view />
 </template>
