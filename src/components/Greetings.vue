@@ -12,8 +12,8 @@
     </p>
 
     <div class="info">
-      <p>두영 &#183; 현 <em>의 장남</em> 검명</p>
-      <p>용강 &#183; 미숙 <em>의 장녀</em> 나영</p>
+      <p>{{ groomFather }} &#183; {{ groomMother }} <em>의 장남</em> {{ groom }}</p>
+      <p>{{ bridalFather}} &#183; {{ bridalMother }} <em>의 장녀</em> {{ bridal }}</p>
     </div>
   </div>
 </template>
@@ -21,6 +21,12 @@
 export default {
   name: 'Greetings',
   props: {
+    groomFather: String,
+    groomMother: String,
+    bridalFather: String,
+    bridalMother: String,
+    groom: String,
+    bridal: String
   },
   data: () => {
     return {
