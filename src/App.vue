@@ -1,7 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-    <router-link to="/">Home</router-link>
-    <router-link to="/card">Card</router-link>
+    <router-link to="/wedding">Home</router-link>
+    <router-link to="/wedding/card">Card</router-link>
     <router-view />
 </template>
 
