@@ -3,6 +3,7 @@ import App from './App.vue'
 import dotenv from "dotenv"
 import router from './router'
 import firebase from 'firebase/app'
+import 'firebase/database'
 
 // <!-- The core Firebase JS SDK is always required and must be listed first -->
 // <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
@@ -29,17 +30,19 @@ import firebase from 'firebase/app'
 // </script>
 
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyA7mqAqpXdcWGZDBDrKx4nKueJvoYrBXmk",
   authDomain: "gm-ny-wedding.firebaseapp.com",
   projectId: "gm-ny-wedding",
   storageBucket: "gm-ny-wedding.appspot.com",
-  messagingSenderId: "1028559128486",
-  appId: "1:1028559128486:web:f2f106e1f44c27d35fb167",
-  measurementId: "G-GESMJ9DQ4R"
+  // messagingSenderId: "1028559128486",
+  // appId: "1:1028559128486:web:f2f106e1f44c27d35fb167",
+  // measurementId: "G-GESMJ9DQ4R"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+export const db = firebase.firestore()
+
 // firebase.analytics();
 
 dotenv.config()

@@ -1,5 +1,4 @@
 <template>
-  <Visitor />
   <Hello />
   <Greetings
     groom-father="황두영"
@@ -19,7 +18,7 @@ import Greetings from '../components/Greetings.vue'
 import Photos from '../components/Photos.vue'
 import Maps from '../components/Maps.vue'
 import Connect from '../components/Connect.vue'
-import Visitor from '../components/Visitor.vue'
+
 
 export default {
   name: 'App',
@@ -28,8 +27,7 @@ export default {
     Greetings,
     Connect,
     Photos,
-    Maps,
-    Visitor
+    Maps
   }
 }
 </script>

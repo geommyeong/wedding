@@ -2,12 +2,17 @@
   <!-- <img alt="Vue logo" src="./assets/logo.png" />
     <router-link to="/">Home</router-link>
     <router-link to="/card">Card</router-link> -->
+    <Visitor />
     <router-view />
 </template>
 
 <script>
+import Visitor from './components/Visitor.vue'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Visitor
+  }
 }
 </script>
 

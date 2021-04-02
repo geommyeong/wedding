@@ -32,15 +32,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .hello {
+  .title {
+    h1 {
+      font-size: 34px;
     }
-    .title {
-      h1 {
-        font-size: 34px;
-      }
-    }
+  }
   .frames {
     width: 100%;
+    max-width: 500px;
     figure {
       img {
         width: 100%;
