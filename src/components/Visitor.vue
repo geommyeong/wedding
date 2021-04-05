@@ -38,9 +38,10 @@
         <p class="readData">축하 메시지</p>
         <ul class="data-list">
           <li
-            v-for="(item, index) in reply"
-            :key="index"
+            v-for="(item) in reply"
+            :key="item.id"
           >
+            <div>{{item.id ? item.id : 'hello'}}</div>
             <div>이름: {{ item.name }}</div>
             <p>내용: {{ item.contents }}</p>
             <p>작성 시간: {{ item.date }}</p>
@@ -147,19 +148,26 @@ export default {
       //   console.error('error adding document', err)
       // })
 
+    //   db.collection("cities").doc("SF")
+    // .onSnapshot((doc) => {
+    //     console.log("Current data: ", doc.data());
+    // });
+
     },
-    read() {
+    read(name) {
       db.collection('visitors').get()
         .then((res) => {
           console.log(res.data)
           this.reply = []
 
           res.forEach( doc => {
+            let stringdate = doc.data().date
+            stringdate = new Date().toISOString()
             this.reply.push({
               key: doc.id,
               name: doc.data().name,
               contents: doc.data().contents,
-              date: doc.data().date,
+              date: stringdate,
               password: doc.data().pasword,
               isPopOpen: false
             })
@@ -169,7 +177,6 @@ export default {
         .catch((err) => {
           this.swalError(err)
         })
-      // const docRef = firebase.firestore().collection('visitors').doc('some-id')
     },
 
     // 메시지 수정
@@ -225,8 +232,8 @@ export default {
     
     // console.log(firebase)
   },
-  created () {
-    this.read()
+  async created () {
+    await this.read()
 
   ///--- disqus -----///
   //   var disqus_config = function () {

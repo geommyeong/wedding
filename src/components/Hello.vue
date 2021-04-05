@@ -1,26 +1,36 @@
 <template>
   <div class="hello">
     <div class="title">
-      <h1>초대합니다.</h1>
-      <p>6월5일</p>
+      <div class="letter-wrap">
+        <!-- w주석 -->
+        <h1>초대합니다.</h1>
+        <p>6월5일</p>
+      </div>
       <span class="letter-bg">Wedding</span>
     </div>
     <div class="frames">
       <div class="frame-fracture">
-        <span>Save</span>
-        <span>Our</span>
-        <span>Date</span>
+        <span class="save">Save</span>
+        <span class="our">Our</span>
+        <span class="date">Date</span>
       </div>
       <figure>
         <img src="@/assets/images/@temp-img.jpg" alt="">
       </figure>
     </div>
+    <Fraction
+      :fractions="fractions"
+    />
 
   </div>
 </template>
 <script>
+import Fraction from '@/components/Fraction.vue'
 export default {
   name: 'Hello',
+  components: {
+    Fraction
+  },
   props: {
     groomFather: String,
     groomMother: String,
@@ -29,21 +39,88 @@ export default {
     groom: String,
     bridal: String
   },
+  data: () => {
+    return {
+      fractions: [
+        {
+          shape: 'circle-small',
+          color: 'orange'
+        },
+        {
+          shape: 'circle',
+          color: 'brown'
+        },
+        {
+          shape: 'triangle',
+          color: 'red'
+        },
+        {
+          shape: 'triangle',
+          color: 'blue'
+        }
+      ]
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
-  .title {
+
+
+.title {
+  position: relative;
+  height: 100vh;
+  .letter-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
     h1 {
-      font-size: 34px;
+      font-size: $font-lar;
+    }
+    p {
+      margin-top: 5rem;
+      font-size: $font-mid;
     }
   }
-  .frames {
+  .letter-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-8deg);
+    font-size: $font-max;
+    opacity: 0.2;
+    color: #FFC08F;
+  }
+}
+
+.frames {
+  position: relative;
+  display: flex;
+  width: 85.30%;
+  margin-left: auto;
+  .frame-fracture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    > span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: $font-fracture;
+    }
+    .save {
+      top: -10px;
+    }
+  }
+  figure {
     width: 100%;
-    max-width: 500px;
-    figure {
-      img {
-        width: 100%;
-      }
+    img {
+      width: 100%;
     }
   }
+}
+
+
 </style>

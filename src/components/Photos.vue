@@ -66,7 +66,7 @@ export default {
 
 <style lang="scss" scoped>
   .photo-wrap {
-    width: 700px;
+    width: 100%;
     height: 500px;
   }
 </style>

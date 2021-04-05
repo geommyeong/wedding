@@ -2,8 +2,8 @@
   <!-- <img alt="Vue logo" src="./assets/logo.png" />
     <router-link to="/">Home</router-link>
     <router-link to="/card">Card</router-link> -->
-    <Visitor />
     <router-view />
+    <Visitor />
 </template>
 
 <script>
@@ -16,8 +16,8 @@ export default {
 }
 </script>
 
-<style>
-/* @import './assets/style/_variables.scss';
-@import './assets/style/_reset.scss'; */
-@import './assets/style/common.scss';
+<style lang="scss">
+@import '@/assets/css/reset.scss';
+@import '@/assets/css/variables.scss';
+@import '@/assets/css/common.scss';
 </style>
