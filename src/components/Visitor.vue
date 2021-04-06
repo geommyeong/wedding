@@ -252,6 +252,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .visitor {
+    margin-top: #{$top-gap-2x}px;
+  }
   .data-list {
     padding-top: 50px;
   }

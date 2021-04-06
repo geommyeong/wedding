@@ -44,19 +44,27 @@ export default {
       fractions: [
         {
           shape: 'circle-small',
-          color: 'orange'
+          color: 'orange',
+          top: 77,
+          right: 77
         },
         {
           shape: 'circle',
-          color: 'brown'
+          color: 'brown',
+          top: 91,
+          right: 65
         },
         {
           shape: 'triangle',
-          color: 'red'
+          color: 'red',
+          top: 147,
+          left: 43
         },
         {
           shape: 'triangle',
-          color: 'blue'
+          color: 'blue',
+          top: 427,
+          right: 108
         }
       ]
     }
@@ -64,15 +72,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
-
 .title {
   position: relative;
-  height: 100vh;
+  height: 80vh;
   .letter-wrap {
     position: absolute;
     top: 50%;
     left: 50%;
+    width: 100%;
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 10;
@@ -98,12 +105,14 @@ export default {
 .frames {
   position: relative;
   display: flex;
-  width: 85.30%;
-  margin-left: auto;
+  width: 92.30%;
+  margin: 20vh -15px 0 auto;
   .frame-fracture {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     > span {
       position: absolute;
       top: 0;
@@ -111,7 +120,19 @@ export default {
       font-size: $font-fracture;
     }
     .save {
-      top: -10px;
+      left: 15px;
+      top: -20px;
+    }
+    .our {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .date {
+      top: auto;
+      right: 15px;
+      bottom: -20px;
+      left: auto;
     }
   }
   figure {

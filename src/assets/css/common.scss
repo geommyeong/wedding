@@ -23,11 +23,33 @@ html, body {
   line-height: 1.2;
 	font-size: 0.266666666666667vw;
 }
+button {
+	font-family: 'Noto-Serif';
+	border: none;
+  background-color: transparent;
+}
 
 #app {
   background: $bg-color;
-  width: 100%;
+	overflow: hidden;
 	max-width: 700px;
 	margin: 0 auto;
-  padding: 0 15px 0;
+	padding: 0 15px;
+	font-size: 10rem;
+}
+
+.contents-title {
+	font-size: $font-s;
+	strong {
+		position: relative;
+		&:before {
+			content: '';
+			position: absolute;
+			top: calc(50% - 2px);
+			right: -50px;
+			width: 40px;
+			height: 2px;
+			background-color: #000;
+		}
+	}
 }

@@ -1,23 +1,36 @@
 <template>
   <div class="maps">
-    <h3>오시는 길</h3>
-    <div id="map" style="width:100%;height:400px;background-color: pink;"></div>
-    <ul>
+    <ContentsTitle
+      title="오시는 길"
+      :description="'부산광역시 연제구 명륜로 3 \n 한양프라자'"
+      :is-right="true"
+    />
+    <div id="map"></div>
+    <ul class="way">
       <li
         v-for="(item, index) in transfortation"
         :key="index"
       >
         <dl>
           <dt>{{ item.title }}</dt>
-          <dd>{{ item.desc }}</dd>
+          <dd v-html="descBreak(item.desc)" />
         </dl>
       </li>
     </ul>
+
+    <Fraction
+      :fractions="fractions"
+    />
   </div>
 </template>
 <script>
-import { onMounted } from '@vue/runtime-core'
+import ContentsTitle from '@/components/ContentsTitle.vue'
+import Fraction from '@/components/Fraction.vue'
 export default {
+  components: {
+    ContentsTitle,
+    Fraction
+  },
   data: () => {
     return {
       appKey: process.env.VUE_APP_API_KEY,
@@ -29,15 +42,38 @@ export default {
         },
         {
           title: '버스',
-          desc: '일반: 10, 29, 31, 43, 51, 52, 77, 100-1, 179, 189, 506\n 마을: 동래구 10'
+          desc: '일반: 10, 29, 31, 43, 51, 52, 77,\n 100-1, 179, 189, 506\n\n 마을: 동래구 10'
         },
         {
-          title: '자가용',
-          desc: '부산광역시 연제구 거제 1동 129-5번지 (명륜로 3) 한양프라자'
+          title: '주차',
+          desc: '한양프라자 자체 주차장 만차시, \n인근 외부 주차장 (델리, 통일, 국제, 덕수)\n및 교육대학교 주차장 \n이용 가능 (2시간 무료) \n대중교통을 이용하시면 더욱 편리합니다.'
+        }
+      ],
+
+      fractions: [
+        {
+          shape: 'circle',
+          color: 'brown',
+          top: -132,
+          right: 140
         },
         {
-          title: '주차 안내',
-          desc: '한양프라자 자체 주차장 만차시, 인근 외부 주차장 및 교육대학교 주차장 이용 가능 (2시간 무료) \n 대중교통을 이용하시면 더욱 편리합니다.'
+          shape: 'circle-small',
+          color: 'orange',
+          top: -126,
+          right: 150
+        },
+        {
+          shape: 'triangle',
+          color: 'red',
+          bottom: 222,
+          left: -15
+        },
+        {
+          shape: 'triangle',
+          color: 'blue',
+          bottom: -47,
+          right: 108
         }
       ]
     }
@@ -140,7 +176,37 @@ export default {
        })
      })
 
+    },
+    descBreak (desc) {
+      return desc.split('\n').join('<br />')
     }
   }
 }
 </script>
+<style lang="scss">
+.maps {
+  position: relative;
+}
+#map {
+  width: 100%;
+  height: 500px;
+  background-color: pink;
+}
+.way {
+  margin: 32px 0 0 20px;
+  > li {
+    margin-top: 22px;
+    font-size: $font-xxs;
+    line-height: 1.6;
+    dl {
+      display: flex;
+      dt {
+        width: 75rem;
+      }
+      dd {
+        width: calc(100% - 75rem);
+      }
+    }
+  }
+}
+</style>

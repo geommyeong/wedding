@@ -18,10 +18,24 @@ $col-orange: #FFC08F;
 */
 
 // by size
-$font-max: 110rem;
-$font-lar: 34rem;
-$font-mid: 24rem;
+$font-max: 100rem;
+$font-lar: 44rem;
+$font-mid-lar: 38rem;
+$font-mid: 34rem;
+$font-s: 24rem;
+$font-xs: 18rem;
+$font-xxs: 14rem;
 
 // by function
 $font-fracture: 40rem;
 
+/*
+* margin variables
+*/
+
+// by common
+$top-gap: 120;
+$top-gap-2x: #{$top-gap * 2};
+$top-gap-3x: #{$top-gap * 3};
+$left-gap: 12%;
+$left-gap-center: 25%;

@@ -429,7 +429,7 @@
         if (r.detailsShowing) return;
         const _id = r.item._id;
         this.isBusy = true;
-        this.$axios.get(`${this.$cfg.path.api}data/board/${_id}`)
+        this.$axios.get(`${this.$cfg.ph.api}data/board/${_id}`)
           .then((res) => {
             if (!res.data.success) throw new Error(res.data.msg);
             r.item.cntView = res.data.d.cntView;
