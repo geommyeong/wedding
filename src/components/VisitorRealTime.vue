@@ -135,14 +135,25 @@ export default {
     // },
 
     submit(name, paswrd, contns) {
-      // console.log(name, paswrd, contns)
+      if (name === '') {
+        alert('이름을 입력하세요')
+      } else if (paswrd === '') {
+        alert('비밀번호를 입력하세요')
+      } else if (contns === '') {
+        alert('내용을 입력하세요')
+      } else {
+        database.ref('users/' + name).set({
+          name: name,
+          pasword: paswrd,
+          contents: contns,
+          date: firebase.database.ServerValue.TIMESTAMP
+        })
+        this.callToastPopup('등록되었습니다!')
+        this.name = '',
+        this.mypassword = '',
+        this.mytextarea = ''
+      }
 
-      database.ref('users/' + name).set({
-        name: name,
-        pasword: paswrd,
-        contents: contns,
-        date: firebase.database.ServerValue.TIMESTAMP
-      })
 
       // console.log(database)
 
@@ -217,15 +228,26 @@ export default {
   // });
 // });
 
+// getMusicListByGroup(data).on('value', (snapshot) => {
+
+// 	// value 값만 가져오기
+//    Object.values(snapshot.val());
+   
+//    // key 값만 가져오기
+//    Object.keys(snapshot.val());
+// });
+
     read(name) {
-      const userRef = database.ref('users/')
+      const userRef = database.ref('users')
       userRef.on('value', (snapshot) => {
+        // console.log(userRef)
         this.reply = []
 
         snapshot.forEach( doc => {
           const data = doc.val()
+
+          // console.log(data)
           this.reply.push({
-            key: data.id,
             name: data.name,
             contents: data.contents,
             password: data.pasword,
@@ -233,7 +255,7 @@ export default {
             isPopOpen: false
           })
 
-          console.log(data)
+          // console.log(Object.values(snapshot.val()))
         })
       });
       // db.collection('visitors').get()
