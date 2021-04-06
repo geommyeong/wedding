@@ -80,6 +80,7 @@
 <script>
 import firebase from 'firebase'
 import { db } from '@/main.js'
+import { database } from '@/main.js'
 
 export default {
   data: () => {
@@ -95,6 +96,9 @@ export default {
       isToastUp: false,
       reply: []
     }
+  },
+  mounted() {
+    // console.log(this.$firebase, '$firebase')
   },
   methods: {
     swalError(msg) {
@@ -113,27 +117,53 @@ export default {
       //   })
     },
 
-    submit(name, paswrd, contns) {
-      console.log(name, paswrd, contns)
+    // function writeUserData(userId, name, email, imageUrl) {
+    //   firebase.database().ref('users/' + userId).set({
+    //     username: name,
+    //     email: email,
+    //     profile_picture : imageUrl
+    //   });
+    // }
 
-      db.collection('visitors')
-        .doc(name)
-        .set({
-          name: name,
-          pasword: paswrd,
-          contents: contns,
-          date: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(() => {
-          this.name = '',
-          this.mypassword = '',
-          this.mytextarea = '',
-          this.callToastPopup('등록되었습니다!')
-          console.log('document written with name')
-        })
-        .catch((err) => {
-          console.error('error adding document', err)
-        })
+    // save () {
+    //   console.log('save@@@')
+    //   //this.$firebase 는 realtimeDB 사용시 쓰고. @firestore는 firestore 사용시 쓴다.
+    //   //ref() => 루트 파일
+    //   this.$firebase.database().ref().child('abcd').child('abcd').child('abcd').set({
+    //     title: 'abcd', text: 'tttttt'
+    //   })
+    // },
+
+    submit(name, paswrd, contns) {
+      // console.log(name, paswrd, contns)
+
+      database.ref('users/' + name).set({
+        name: name,
+        pasword: paswrd,
+        contents: contns,
+        date: firebase.database.ServerValue.TIMESTAMP
+      })
+
+      // console.log(database)
+
+      // db.collection('visitors')
+      //   .doc(name)
+      //   .set({
+      //     name: name,
+      //     pasword: paswrd,
+      //     contents: contns,
+      //     date: firebase.firestore.FieldValue.serverTimestamp()
+      //   })
+      //   .then(() => {
+      //     this.name = '',
+      //     this.mypassword = '',
+      //     this.mytextarea = '',
+      //     this.callToastPopup('등록되었습니다!')
+      //     console.log('document written with name')
+      //   })
+      //   .catch((err) => {
+      //     console.error('error adding document', err)
+      //   })
 
       // db.collection('visitors').add({
       //   name: name,
@@ -154,29 +184,80 @@ export default {
     // });
 
     },
-    read(name) {
-      db.collection('visitors').get()
-        .then((res) => {
-          // console.log(res.data)
-          this.reply = []
+    reads () {
+      //on() : 계속 변화를 감지해서 읽음.DB내에서 바꿔도 내용을 읽을 수 있다.
+      // this.$firebase.database().ref().child('abcd').on('value', (sn) => {
+      //   console.log(sn)
+      //   console.log(sn.val())
+      // })
+    },
 
-          res.forEach( doc => {
-            let stringdate = doc.data().date
-            stringdate = new Date().toISOString()
-            this.reply.push({
-              key: doc.id,
-              name: doc.data().name,
-              contents: doc.data().contents,
-              date: stringdate,
-              password: doc.data().pasword,
-              isPopOpen: false
-            })
-            // console.log(doc.id, '=>', doc.data(), doc.data().pasword)
+    // var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
+    //   starCountRef.on('value', (snapshot) => {
+    //     const data = snapshot.val();
+    //     updateStarCount(postElement, data);
+    //   });
+
+    // database.child("users").child(userId).get().then(function(snapshot) {
+    //   if (snapshot.exists()) {
+    //     console.log(snapshot.val());
+    //   }
+    //   else {
+    //     console.log("No data available");
+    //   }
+    // }).catch(function(error) {
+    //   console.error(error);
+    // });
+
+  //   var onDataChange =tutorialsRef.on('value', function(snapshot) {
+  // snapshot.forEach(function(childSnapshot) {
+  //   var childKey = childSnapshot.key;
+  //   var childData = childSnapshot.val();
+  //   // ...
+  // });
+// });
+
+    read(name) {
+      const userRef = database.ref('users/')
+      userRef.on('value', (snapshot) => {
+        this.reply = []
+
+        snapshot.forEach( doc => {
+          const data = doc.val()
+          this.reply.push({
+            key: data.id,
+            name: data.name,
+            contents: data.contents,
+            password: data.pasword,
+            date: new Date(data.date),
+            isPopOpen: false
           })
+
+          console.log(data)
         })
-        .catch((err) => {
-          this.swalError(err)
-        })
+      });
+      // db.collection('visitors').get()
+      //   .then((res) => {
+      //     console.log(res.data)
+      //     this.reply = []
+
+      //     res.forEach( doc => {
+      //       let stringdate = doc.data().date
+      //       stringdate = new Date().toISOString()
+      //       this.reply.push({
+      //         key: doc.id,
+      //         name: doc.data().name,
+      //         contents: doc.data().contents,
+      //         date: stringdate,
+      //         password: doc.data().pasword,
+      //         isPopOpen: false
+      //       })
+      //       console.log(doc.id, '=>', doc.data(), doc.data().pasword)
+      //     })
+      //   })
+      //   .catch((err) => {
+      //     this.swalError(err)
+      //   })
     },
 
     // 메시지 수정
@@ -187,24 +268,24 @@ export default {
     // 메세지 삭제
     deleteUser(name, dbPassword, inputPassword) {
       // if (item.password)
-      console.log(dbPassword, inputPassword)
-      if (dbPassword === inputPassword) {
-        db.collection('visitors')
-        .doc(name)
-        .delete()
-        .then(() => {
-          this.erpassword = ''
-          this.callToastPopup('지워짐')
-          console.log('지워짐')
-        })
-        .catch((err) => {
-          console.err(err)
-        })
-      } else {
-        this.callToastPopup('안지워짐 - 비밀번호가 틀렸음')
-        console.log('access denied')
-        this.erpassword = ''
-      }
+      // console.log(dbPassword, inputPassword)
+      // if (dbPassword === inputPassword) {
+      //   db.collection('visitors')
+      //   .doc(name)
+      //   .delete()
+      //   .then(() => {
+      //     this.erpassword = ''
+      //     this.callToastPopup('지워짐')
+      //     console.log('지워짐')
+      //   })
+      //   .catch((err) => {
+      //     console.err(err)
+      //   })
+      // } else {
+      //   this.callToastPopup('안지워짐 - 비밀번호가 틀렸음')
+      //   console.log('access denied')
+      //   this.erpassword = ''
+      // }
     },
 
     // 메세지 삭제 팝업 띄우기
@@ -227,10 +308,6 @@ export default {
       //     })
       //   })
     // }
-  },
-  mounted() {
-    
-    // console.log(firebase)
   },
   async created () {
     await this.read()

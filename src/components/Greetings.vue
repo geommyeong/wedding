@@ -9,7 +9,7 @@
     <p class="message" v-html="messageBreak(message)" />
 
     <div class="info">
-      <p class="info-date">{{ dday(year, month, date, day, hour) }}</p>
+      <p class="info-date" v-html="dday(year, month, date, day, hour)" />
       <div class="info-place">
         <p>{{ city }}</p>
         <p>{{ weddingHall }}</p>
@@ -97,7 +97,7 @@ export default {
   methods: {
     dday (year, month, date, day, hour) {
       if (hour > 12) hour = `오후 ${hour - 12}`
-      return `${year}년 ${month}월 ${date}일 (${day}) ${hour}시`
+      return `${year}년 ${month}월 ${date}일 (${day}) <br /> ${hour}시`
     },
     messageBreak (msg) {
       return msg.split('\n').join('<br />')
@@ -133,7 +133,7 @@ export default {
   }
 
   .info {
-    font-size: $font-xs;
+    font-size: $font-s;
     margin: #{$top-gap}px 0 0 $left-gap-center;
     &-place {
       margin-top: 20px;

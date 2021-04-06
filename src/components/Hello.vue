@@ -72,6 +72,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.hello {
+  position: relative;
+}
 .title {
   position: relative;
   height: 80vh;

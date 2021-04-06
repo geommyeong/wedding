@@ -2,8 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import dotenv from "dotenv"
 import router from './router'
-import firebase from 'firebase/app'
-import 'firebase/database'
+import firebase from 'firebase/app';
+import 'firebase/database';
+
+
 
 // <!-- The core Firebase JS SDK is always required and must be listed first -->
 // <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
@@ -42,6 +44,7 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.firestore()
+export const database = firebase.database();
 
 // firebase.analytics();
 

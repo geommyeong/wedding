@@ -1,4 +1,5 @@
 <template>
+  <VisitorRealTime />
   <!-- <img alt="Vue logo" src="./assets/logo.png" />
     <router-link to="/">Home</router-link>
     <router-link to="/card">Card</router-link> -->
@@ -10,7 +11,8 @@
 </template>
 
 <script>
-import Visitor from './components/Visitor.vue'
+import VisitorRealTime from '@/components/VisitorRealTime.vue'
+import Visitor from '@/components/Visitor.vue'
 import Hello from '@/components/Hello.vue'
 import Photos from '@/components/Photos.vue'
 import Maps from '@/components/Maps.vue'
@@ -21,6 +23,7 @@ export default {
     Hello,
     Photos,
     Maps,
+    VisitorRealTime,
     // Account,
     Visitor
   }
