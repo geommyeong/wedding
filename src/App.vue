@@ -1,5 +1,5 @@
 <template>
-  <VisitorRealTime />
+    <Visitor />
   <!-- <img alt="Vue logo" src="./assets/logo.png" />
     <router-link to="/">Home</router-link>
     <router-link to="/card">Card</router-link> -->
@@ -7,7 +7,7 @@
     <router-view />
     <Photos />
     <Maps />
-    <Visitor />
+  <VisitorRealTime />
 </template>
 
 <script>

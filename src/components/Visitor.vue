@@ -2,7 +2,7 @@
   <div class="visitor">
     <p>댓글란</p>
     <div class="log-in">
-      <div class="log" style="display: none;">
+      <!-- <div class="log" style="display: none;">
       <h4>아이디</h4>
       <input v-model="email" type="text" />
 
@@ -13,35 +13,111 @@
         type="button"
         @click="SignUp()"
       >가입하기</button>
-      </div>
+      </div> -->
 
       <div>
-        <h4>이름</h4>
-        <input v-model="name" type="text" />
-
-        <h4>비밀번호</h4>
-        <input v-model="mypassword" type="password" name="mypassword" id="mypassword" />
-
-        <h4>텍스트 필드</h4>
-        <textarea v-model="mytextarea" name="mytextarea" id="mytextarea" cols="30" rows="10" />
-
-        <button
-          type="button"
-          @click="submit(name, mypassword, mytextarea)"
+        <form
+          @submit.prevent="onSubmit(name, mypassword, mytextarea)"
+          method="post"
         >
-          등록하기
-        </button>
+          <!-- <h4>이름</h4> -->
+              <!-- name.length > 0 ? 'fm-filled' : '', -->
+          <div
+            :class="[
+              'fm-field',
+              {'fm-filled' : nameFilled},
+              {'fm-focused' : nameFocused}
+            ]"
+          >
+            <label for="name">이름</label>
+            <input
+              id="name"
+              v-model="name"
+              type="text"
+              name="name"
+              placeholder="이름을 입력해주세요"
+              @focus="nameFocused = true"
+              @blur="nameFocused = false"
+              :maxlength="5"
+              required
+            />
+              <!-- @blur="name.length > 0 ? nameFocused = true : nameFocused = false" -->
+            <button
+              type="button"
+              class="btn-submit"
+              @click="checkDuplicateName(name)"
+            >
+              중복확인
+            </button>
+            <p
+              :class="[
+                'fld-notice',
+                {'checked' : name.length >= 2}
+              ]"
+            >{{ name.length }} / 5</p>
+            <p>한글과 숫자만 입력 가능합니다.</p>
+            <p>이름을 입력해주세요 (한글 2 ~ 4 자리만 가능합니다.)</p>
+          </div>
+
+          <!-- <h4>비밀번호</h4> -->
+          <label for="mypassword">비밀번호</label>
+          <input
+            v-model="mypassword"
+            type="password"
+            name="mypassword"
+            id="mypassword"
+            placeholder="비밀번호를 입력해주세요"
+            maxlength="4"
+            required
+          />
+          <p
+            :class="[
+              'fld-notice',
+              {'checked' : mypassword.length === 4 }
+            ]"
+          >{{ mypassword.length }} / 4</p>
+          <p>비밀번호를 입력해주세요 (숫자 4자리)</p>
+          <p>숫자만 입력 가능합니다.</p>
+
+          <!-- <h4>텍스트 필드</h4> -->
+          <label for="mytextarea">텍스트 필드</label>
+          <textarea
+            v-model="mytextarea"
+            name="mytextarea"
+            id="mytextarea"
+            placeholder="메세지를 써 주세요"
+            maxlength="100"
+            cols="30"
+            rows="10"
+          />
+          <p
+            :class="[
+              'fld-notice',
+              {'checked' : mytextarea.length >= 1 }
+            ]"
+          >{{ mytextarea.length }} / 200</p>
+          <p>최대 200자 까지 입력 가능합니다.</p>
+
+
+          <button
+            type="submit"
+            class="btn-submit"
+          >
+            <!-- @click="submit(name, mypassword, mytextarea)" -->
+            등록하기
+          </button>
+        </form>
       </div>
 
       <div>
-        <button type="button" @click="read()">데이터 읽기</button>
+        <!-- <button type="button" @click="read()">데이터 읽기</button> -->
         <p class="readData">축하 메시지</p>
         <ul class="data-list">
           <li
             v-for="(item) in reply"
-            :key="item.id"
+            :key="item.name"
           >
-            <div>{{item.id ? item.id : 'hello'}}</div>
+            <div>{{item.name ? item.name : 'hello'}}</div>
             <div>이름: {{ item.name }}</div>
             <p>내용: {{ item.contents }}</p>
             <p>작성 시간: {{ item.date }}</p>
@@ -87,6 +163,10 @@ export default {
       email: '',
       password: '',
       name: '',
+      isNameExist: 'tr',
+      checkDupName: false,
+      nameFilled: false,
+      nameFocused: false,
       mypassword: '',
       mytextarea: '',
       erpassword: '',
@@ -96,87 +176,150 @@ export default {
       reply: []
     }
   },
+  watch: {
+    name () {
+      this.name.length >= 2
+        ? this.nameFilled = true
+        : this.nameFilled = false
+      return this.name = this.name.replace(/[^가-힣0-9]/g, '')
+    },
+    mypassword () {
+      return this.mypassword = this.mypassword.replace(/[^0-9]/g, '')
+    }
+  },
   methods: {
     swalError(msg) {
       console.error('서버 에러입니다.', msg)
     },
-    SignUp() {
-      console.log('sign up')
-      console.log('email:', this.email)
-      console.log('password:', this.password)
-      // firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-      //   .then((user) => {
-      //     console.log(user)
-      //   })
-      //   .catch((error) => {
-      //     console.error(error)
-      //   })
+    // SignUp() {
+    //   console.log('sign up')
+    //   console.log('email:', this.email)
+    //   console.log('password:', this.password)
+    //   // firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+    //   //   .then((user) => {
+    //   //     console.log(user)
+    //   //   })
+    //   //   .catch((error) => {
+    //   //     console.error(error)
+    //   //   })
+    // },
+
+    resetTextfield () {
+      this.name = ''
+      this.mypassword = ''
+      this.mytextarea = ''
     },
 
-    submit(name, paswrd, contns) {
-      console.log(name, paswrd, contns)
+    alwaysTrue () {
+      // return true
+      this.isNameExist
+        ? this.checkDupName = false
+        : this.checkDupName = true
 
+      console.log('isNameExist', this.isNameExist)
+      console.log('checkDupName', this.checkDupName)
+
+      // console.lo
+    },
+
+    async checkDuplicateName (n) {
+      // let isNameExist = false
+      db.collection('visitors').get().then(res => {
+        let arr = []
+        res.forEach( doc => {
+          arr.push(doc.data().name)
+        })
+        if (arr.indexOf(n) !== -1) {
+          this.isNameExis = 'fa'
+          console.log('A', this.isNameExist)
+        } else {
+          console.log('B', this.isNameExist)
+        }
+        // this.isNameExist = true
+      })
+
+      console.log('isNameExist', this.isNameExist)
+    },
+
+    onSubmit(name, paswrd, contns) {
+      // console.log(name, paswrd, contns)
+
+      // console.log(this.checkDuplicateName(name) , this.checkDuplicateName(name) ? `${name} 사용할 수 없습니다!` : `${name} 으로 사용 가능합니다!`)
+      // console.log('bb', this.alwaysTrue())
+
+      // let isNameExist = false
+      
+
+      // console.log(isNameExist)
+
+
+      if (name === '') {
+        alert('이름을 입력하세요')
+      } else if (paswrd === '') {
+        alert('비밀번호를 입력하세요')
+      } else if (contns === '') {
+        alert('내용을 입력하세요')
+      } else {
+        db.collection('visitors')
+          .doc(name)
+          .set({
+            name: name,
+            pasword: paswrd,
+            contents: contns,
+            date: firebase.firestore.FieldValue.serverTimestamp()
+          })
+          .then(() => {
+            this.resetTextfield()
+            this.callToastPopup('등록되었습니다!')
+            console.log('document written with name')
+          })
+          .catch((err) => {
+            console.error('error adding document', err)
+          })
+      }
+    },
+    async read() {
       db.collection('visitors')
-        .doc(name)
-        .set({
-          name: name,
-          pasword: paswrd,
-          contents: contns,
-          date: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(() => {
-          this.name = '',
-          this.mypassword = '',
-          this.mytextarea = '',
-          this.callToastPopup('등록되었습니다!')
-          console.log('document written with name')
-        })
-        .catch((err) => {
-          console.error('error adding document', err)
-        })
-
-      // db.collection('visitors').add({
-      //   name: name,
-      //   pasword: paswrd,
-      //   contents: contns,
-      //   date: firebase.firestore.FieldValue.serverTimestamp()
-      // })
-      // .then((docRef) => {
-      //   console.log('document written with name', docRef.id)
-      // })
-      // .catch((err) => {
-      //   console.error('error adding document', err)
-      // })
-
-    //   db.collection("cities").doc("SF")
-    // .onSnapshot((doc) => {
-    //     console.log("Current data: ", doc.data());
-    // });
-
-    },
-    read(name) {
-      db.collection('visitors').get()
-        .then((res) => {
-          // console.log(res.data)
+        .orderBy('date', 'desc')
+        .onSnapshot( res => {
           this.reply = []
+          res.forEach( (doc) => {
+            const datedata = new Date(doc.data().date.seconds * 1000)
 
-          res.forEach( doc => {
-            let stringdate = doc.data().date
-            stringdate = new Date().toISOString()
             this.reply.push({
-              key: doc.id,
               name: doc.data().name,
               contents: doc.data().contents,
-              date: stringdate,
+              date: datedata,
               password: doc.data().pasword,
               isPopOpen: false
             })
-            // console.log(doc.id, '=>', doc.data(), doc.data().pasword)
           })
-        })
-        .catch((err) => {
+        }, err => {
           this.swalError(err)
         })
+
+      // db.collection('visitors').get()
+      //   .then((res) => {
+      //     // console.log(res.data)
+      //     this.reply = []
+
+      //     res.forEach( doc => {
+      //       let stringdate = bewdoc.data().date.seconds * 1000
+      //       stringdate = new Date(doc.data().date.seconds * 1000)
+      //       this.reply.push({
+      //         key: doc.id,
+      //         name: doc.data().name,
+      //         contents: doc.data().contents,
+      //         date: stringdate,
+      //         password: doc.data().pasword,
+      //         isPopOpen: false
+      //       })
+      //       // console.log(doc.id, '=>', doc.data(), doc.data().pasword)
+      //     })
+      //   })
+      //   .catch((err) => {
+      //     this.swalError(err)
+      //   })
     },
 
     // 메시지 수정
@@ -229,12 +372,14 @@ export default {
     // }
   },
   mounted() {
-    
     // console.log(firebase)
   },
-  async created () {
-    await this.read()
-
+  created() {
+    this.read()
+  }
+  // async created () {
+  //   await this.read()
+  // }
   ///--- disqus -----///
   //   var disqus_config = function () {
   //   this.page.url = 'https://geommyeong.github.io/wedding';
@@ -248,7 +393,6 @@ export default {
   //   (d.head || d.body).appendChild(s);
   //   })();
   ///--- disqus -----///
-  }
 }
 </script>
 <style lang="scss" scoped>
@@ -280,5 +424,53 @@ export default {
     &.up {
       transform: translate(0, -200%);
     }
+  }
+
+  .fm-field {
+    position: relative;
+    padding: 30px 0;
+    &.fm-focused {
+      label {
+        top: 0;
+        color: #448aff;
+        opacity: 1;
+      }
+    }
+    &.fm-filled {
+      label {
+        top: 0;
+        opacity: 1;
+      }
+    }
+    label {
+      position: absolute;
+      top: 12px;
+      left: 0;
+      font-size: 16px;
+      color: #ccc;
+      opacity: 0;
+      transition: .4s cubic-bezier(.25,.8,.25,1);
+      transition-duration: .3s;
+      &:after {
+        content:'*';
+        font-size: 10;
+      }
+    }
+    input {
+      display: block;
+      height: 32px;
+      border: none;
+      transition: .4s cubic-bezier(.25,.8,.25,1);
+      transition-property: font-size,padding-top,color;
+    }
+  }
+  .fld-notice {
+    &.checked {
+      color: #448aff;
+    }
+  }
+  .btn-submit {
+    padding: 10px;
+    border: 1px solid #448aff;
   }
 </style>

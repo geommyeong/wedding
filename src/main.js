@@ -2,8 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import dotenv from "dotenv"
 import router from './router'
-import firebase from 'firebase/app';
-import 'firebase/database';
+import firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/firestore'
+import 'firebase/auth'
 
 
 
@@ -37,9 +39,9 @@ const firebaseConfig = {
   authDomain: "gm-ny-wedding.firebaseapp.com",
   projectId: "gm-ny-wedding",
   storageBucket: "gm-ny-wedding.appspot.com",
-  // messagingSenderId: "1028559128486",
-  // appId: "1:1028559128486:web:f2f106e1f44c27d35fb167",
-  // measurementId: "G-GESMJ9DQ4R"
+  messagingSenderId: "1028559128486",
+  appId: "1:1028559128486:web:f2f106e1f44c27d35fb167",
+  measurementId: "G-GESMJ9DQ4R"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

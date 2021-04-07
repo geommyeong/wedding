@@ -20,11 +20,11 @@
 
     <!-- parents -->
     <div
+      v-if="isParents"
       :class="[
         'connect-to-parents',
         {'is-open' : parentsPop}
       ]"
-      v-if="isParents"
     >
       <button
         class="btn-parents"

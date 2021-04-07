@@ -20,7 +20,7 @@
         <input v-model="name" type="text" />
 
         <h4>비밀번호</h4>
-        <input v-model="mypassword" type="password" name="mypassword" id="mypassword" />
+        <input v-model="mypassword" type="password" name="mypassword" id="mypasswords" />
 
         <h4>텍스트 필드</h4>
         <textarea v-model="mytextarea" name="mytextarea" id="mytextarea" cols="30" rows="10" />
