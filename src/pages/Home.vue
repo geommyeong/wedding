@@ -32,6 +32,7 @@
   />
   <PopupPhoto
     :photo-list="ourPhoto"
+    :active-index="myIndex"
     v-if="isModalViewed"
     @close-modal="callModalClose()"
     />
@@ -56,6 +57,7 @@ export default {
   },
   data() {
     return {
+      myIndex: null,
       isModalViewed: false,
       groomFather: '황두영',
       groomMother: '윤현',
@@ -133,7 +135,9 @@ export default {
   methods: {
     callModalOpen (idx) {
       this.isModalViewed = true
-      console.log(idx)
+      this.myIndex = idx
+
+      console.log(idx, this.myIndex)
     },
     callModalClose() {
       this.isModalViewed = false

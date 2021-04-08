@@ -12,7 +12,10 @@
       ref="popupSwiper"
       :slides-per-view="1"
       :space-between="20"
+      :initial-slide="activeIndex"
+      @init="thisOn()"
     >
+      <!-- :on="thisOn()" -->
       <swiper-slide
         class="photo-frame"
         v-for="(item, index) in photoList"
@@ -35,13 +38,20 @@ export default {
     SwiperSlide
   },
   props: {
-    photoList: Array
+    photoList: Array,
+    activeIndex: Number,
   },
   data: () => {
     return {
     }
   },
+  mounted() {
+    // this.$refs.popupSwiper.swiper.activeIndex
+    // console.log(this.$refs.popupSwiper.swiper.activeIndex)
+  },
   methods: {
+    thisOn() {
+    },
     closePopup () {
       this.$emit('pop-close-click')
     },
