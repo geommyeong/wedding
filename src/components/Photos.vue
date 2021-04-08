@@ -9,17 +9,22 @@
       ref="mySwiper"
       :slides-per-view="'auto'"
       :space-between="20"
-
     >
+
       <swiper-slide
         class="photo-frame"
-        v-for="(item, index) in items"
-        :key="item.id"
+        v-for="(item, index) in photoList"
+        :key="index"
       >
         {{ `slide${index}` }}{{ item.id }}
-        <div class="photo">
-          <img :src="require(`@/assets/images/${item.img}.jpg`)" alt="">
-        </div>
+        <button
+          type="button"
+          @click="$emit('open-modal', index)"
+        >
+          <div class="photo">
+            <img :src="require(`@/assets/images/${item.img}.jpg`)" alt="">
+          </div>
+        </button>
 
       </swiper-slide>
     </swiper>
@@ -42,27 +47,11 @@ export default {
     ContentsTitle,
     Fraction
   },
+  props: {
+    photoList: Array
+  },
   data: () => {
     return {
-      items: [
-        {
-          id: '하하하하',
-          img: '@temp-img'
-        },
-        {
-          id: '하하하하',
-          img: '@temp-img'
-        },
-        {
-          id: '하하하하',
-          img: '@temp-img'
-        },
-        {
-          id: '하하하하',
-          img: '@temp-img'
-        }
-      ],
-
       fractions: [
         {
           shape: 'triangle',
@@ -85,7 +74,14 @@ export default {
     },
     onSlideChange() {
       console.log('slide change');
-    },
+    }
+    // callPhotoPop() {
+    //   this.isPopupCalled = true
+    //   console.log('pop up')
+    // },
+    // aaa() {
+    //   console.log('aaa')
+    // }
   }
 }
 </script>

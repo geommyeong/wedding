@@ -1,30 +1,23 @@
 <template>
-    <Visitor />
   <!-- <img alt="Vue logo" src="./assets/logo.png" />
     <router-link to="/">Home</router-link>
     <router-link to="/card">Card</router-link> -->
     <Hello />
     <router-view />
-    <Photos />
-    <Maps />
-  <VisitorRealTime />
+    <Visitor />
+    <VisitorRealTime />
 </template>
 
 <script>
 import VisitorRealTime from '@/components/VisitorRealTime.vue'
 import Visitor from '@/components/Visitor.vue'
 import Hello from '@/components/Hello.vue'
-import Photos from '@/components/Photos.vue'
-import Maps from '@/components/Maps.vue'
-// import Account from '@/components/Account.vue'
+
 export default {
   name: 'App',
   components: {
     Hello,
-    Photos,
-    Maps,
     VisitorRealTime,
-    // Account,
     Visitor
   }
 }
