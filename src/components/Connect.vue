@@ -1,5 +1,9 @@
 <template>
   <div class="connect">
+    <Fraction
+      :fractions="fractions"
+    />
+
     <ContentsTitle
       title="연락하기"
       :description="'전화나 문자\n모두 가능합니다.'"
@@ -59,10 +63,12 @@
 </template>
 <script>
 import ContentsTitle from '@/components/ContentsTitle.vue'
+import Fraction from '@/components/Fraction.vue'
 export default {
   name: 'Connect',
   components: {
-    ContentsTitle
+    ContentsTitle,
+    Fraction
   },
   props: {
     connect: Array,
@@ -74,8 +80,33 @@ export default {
   },
   data: () => {
     return {
-      // connectPop: false,
-      parentsPop: false
+      parentsPop: false,
+      fractions: [
+        {
+          shape: 'circle-small',
+          color: 'orange',
+          top: 77,
+          right: 77
+        },
+        {
+          shape: 'circle',
+          color: 'brown',
+          top: 91,
+          right: 65
+        },
+        {
+          shape: 'triangle',
+          color: 'red',
+          top: 147,
+          left: 43
+        },
+        {
+          shape: 'triangle',
+          color: 'blue',
+          top: 427,
+          right: 108
+        }
+      ]
     }
   },
   methods: {
@@ -86,10 +117,6 @@ export default {
         return '신부'
       }
     },
-    // openConnectPop (itm, idx) {
-    //   this.connect[idx].connectPop = !this.connect[idx].connectPop
-    //   console.log(itm, itm.connectPop)
-    // }
     toggleParents () {
       this.parentsPop = !this.parentsPop
     }
@@ -98,9 +125,12 @@ export default {
 </script>
 <style lang="scss" scoped>
   .connect {
+    position: relative;
     margin-top: #{$top-gap-2x}px;
   }
   .connect-person {
+    position: relative;
+    z-index: 10;
     margin-top: #{$top-gap}px;
     ul {
       li {
@@ -126,6 +156,8 @@ export default {
     }
   }
   .connect-to-parents {
+    position: relative;
+    z-index: 10;
     margin-top: #{$top-gap}px;
     .btn-parents {
       position: relative;

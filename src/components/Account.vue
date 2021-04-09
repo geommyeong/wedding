@@ -115,5 +115,8 @@ export default {
         }
       }
     }
+    .fraction {
+      z-index: -1;
+    }
   }
 </style>

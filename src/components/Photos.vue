@@ -75,13 +75,6 @@ export default {
     onSlideChange() {
       console.log('slide change');
     }
-    // callPhotoPop() {
-    //   this.isPopupCalled = true
-    //   console.log('pop up')
-    // },
-    // aaa() {
-    //   console.log('aaa')
-    // }
   }
 }
 </script>
