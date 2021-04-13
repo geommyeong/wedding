@@ -3,8 +3,9 @@
     <div class="title">
       <div class="letter-wrap">
         <!-- w주석 -->
-        <h1>초대합니다.</h1>
+        <h1>초대합니다</h1>
         <p>6월5일</p>
+        <span>더리안 웨딩홀</span>
       </div>
       <span class="letter-bg">Wedding</span>
     </div>
@@ -90,8 +91,13 @@ export default {
       font-size: $font-lar;
     }
     p {
-      margin-top: 5rem;
+      margin-top: 25rem;
       font-size: $font-mid;
+    }
+    span {
+      display: block;
+      margin-top: 25rem;
+      font-size: $font-xs;
     }
   }
   .letter-bg {

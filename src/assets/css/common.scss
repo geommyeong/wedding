@@ -37,19 +37,3 @@ button {
 	padding: 0 15px;
 	font-size: 10rem;
 }
-
-.contents-title {
-	font-size: $font-s;
-	strong {
-		position: relative;
-		&:before {
-			content: '';
-			position: absolute;
-			top: calc(50% - 2px);
-			right: -50px;
-			width: 40px;
-			height: 2px;
-			background-color: #000;
-		}
-	}
-}

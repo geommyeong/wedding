@@ -6,6 +6,11 @@
       <strong>{{ bridal }}</strong>
     </div>
 
+    <ContentsTitle
+      title="초대합니다."
+      :is-right="true"
+    />
+
     <p class="message" v-html="messageBreak(message)" />
 
     <div class="info">
@@ -19,15 +24,15 @@
 
     <div class="parents">
       <p>
-        <strong>{{ groomFather }}</strong>
-        <strong>{{ groomMother }}</strong>
+        <strong class="parents-name">{{ groomFather }}</strong>
+        <strong class="parents-name">{{ groomMother }}</strong>
         <em>의 장남</em>
         <strong>{{ groom }}</strong>
       </p>
 
       <p>
-        <strong>{{ bridalFather }}</strong>
-        <strong>{{ bridalMother }}</strong>
+        <strong class="parents-name">{{ bridalFather }}</strong>
+        <strong class="parents-name">{{ bridalMother }}</strong>
         <em>의 장녀</em>
         <strong>{{ bridal }}</strong>
       </p>
@@ -40,11 +45,13 @@
   </div>
 </template>
 <script>
+import ContentsTitle from '@/components/ContentsTitle.vue'
 import Fraction from '@/components/Fraction.vue'
 
 export default {
   name: 'Greetings',
   components: {
+    ContentsTitle,
     Fraction
   },
   props: {
@@ -110,6 +117,8 @@ export default {
     position: relative;
     margin-top: #{$top-gap-3x}px;
     &-name {
+      position: relative;
+      z-index: $z-bg;
       margin-left: $left-gap;
       > strong {
         display: block;
@@ -126,15 +135,19 @@ export default {
 
   .message {
     display: flex;
-    margin: #{$top-gap-2x}px 0 0 $left-gap;
+    position: relative;
+    z-index: $z-bg;
+    margin: 0 0 0 $left-gap;
     justify-content: flex-end;
     font-size: $font-xs;
     line-height: 1.6;
   }
 
   .info {
-    font-size: $font-s;
+    position: relative;
+    z-index: $z-bg;
     margin: #{$top-gap}px 0 0 $left-gap-center;
+    font-size: $font-s;
     &-place {
       margin-top: 20px;
       line-height: 1.4;
@@ -143,18 +156,34 @@ export default {
   }
 
   .parents {
+    position: relative;
+    z-index: $z-bg;
     margin: #{$top-gap-2x}px 0 0 $left-gap-center;
     > p {
-      > strong {
-        display: block;
-        margin-top: 10px;
-        font-size: $font-mid;
+      .parents-name {
+        display: inline-block;
+        font-size: $font-s;
+        & + .parents-name {
+          position: relative;
+          margin-left: 30rem;
+          &::before {
+            content: '';
+            position: absolute;
+            top: 10rem;
+            left: -16rem;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: $col-key;
+          }
+        }
       }
       > em {
         display: block;
         margin-top: 15px;
         font-size: $font-xs;
         & + strong {
+          display: block;
           margin-top: 40px;
           font-size: $font-mid-lar;
         }
@@ -163,5 +192,9 @@ export default {
         margin-top: #{$top-gap}px;
       }
     }
+  }
+
+  .contents-title {
+    margin-top: #{$top-gap-2x}px;
   }
 </style>

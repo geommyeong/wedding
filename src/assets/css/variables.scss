@@ -4,6 +4,7 @@
 
 // by contents
 $bg-color: #FFF8F6;
+$col-key: #000;
 
 
 // by fractions
@@ -22,6 +23,7 @@ $font-max: 100rem;
 $font-lar: 44rem;
 $font-mid-lar: 38rem;
 $font-mid: 34rem;
+$font-mid-s: 28rem;
 $font-s: 24rem;
 $font-xs: 18rem;
 $font-xxs: 14rem;
@@ -39,3 +41,7 @@ $top-gap-2x: #{$top-gap * 2};
 $top-gap-3x: #{$top-gap * 3};
 $left-gap: 12%;
 $left-gap-center: 25%;
+
+
+// z index
+$z-bg: 10;
