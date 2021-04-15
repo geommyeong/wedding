@@ -88,7 +88,7 @@ export default {
       }
     },
     showAccount (itm) {
-      isAccPopOpen = true
+      this.isAccPopOpen = true
       console.log(itm)
     }
   }
