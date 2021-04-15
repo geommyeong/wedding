@@ -9,6 +9,7 @@
       ref="mySwiper"
       :slides-per-view="'auto'"
       :space-between="20"
+      :pagination="myPagination"
     >
 
       <swiper-slide
@@ -16,9 +17,9 @@
         v-for="(item, index) in photoList"
         :key="index"
       >
-        {{ `slide${index}` }}{{ item.id }}
         <button
           type="button"
+          class="btn-call-pop"
           @click="$emit('open-modal', index)"
         >
           <div class="photo">
@@ -27,6 +28,7 @@
         </button>
 
       </swiper-slide>
+      <!-- <div class="swiper-pagination">1</div> -->
     </swiper>
 
     <Fraction
@@ -52,6 +54,9 @@ export default {
   },
   data: () => {
     return {
+      myPagination: {
+        el: '.swiper-pagination'
+      },
       fractions: [
         {
           shape: 'triangle',
@@ -83,14 +88,18 @@ export default {
   .photos {
     position: relative;
     margin-top: #{$top-gap-2x}px;
+    color: $col-key;
   }
   .photo-wrap {
     margin: 30px -15px 0;
     padding-left: 40px;
-    height: 500px;
+    // height: 500px;
 
     .photo-frame {
       width: 68%;
+      .btn-call-pop {
+        padding: 0;
+      }
       .photo {
         img {
           width: 100%;

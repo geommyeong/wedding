@@ -34,6 +34,7 @@ export default {
     position: relative;
     z-index: $z-bg;
     margin-bottom: 34px;
+    color: $col-key;
     &.is-right {
       text-align: right;
       h2 strong:before {
@@ -52,7 +53,7 @@ export default {
           right: -50px;
           width: 40px;
           height: 2px;
-          background-color: #000;
+          background-color: $col-key;
         }
       }
     }

@@ -5,11 +5,9 @@
     <Hello />
     <router-view />
     <Visitor />
-    <VisitorRealTime />
 </template>
 
 <script>
-import VisitorRealTime from '@/components/VisitorRealTime.vue'
 import Visitor from '@/components/Visitor.vue'
 import Hello from '@/components/Hello.vue'
 
@@ -17,7 +15,6 @@ export default {
   name: 'App',
   components: {
     Hello,
-    VisitorRealTime,
     Visitor
   }
 }

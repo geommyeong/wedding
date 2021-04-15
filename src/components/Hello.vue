@@ -1,22 +1,24 @@
 <template>
   <div class="hello">
     <div class="title">
-      <div class="letter-wrap">
+      <div class="letter-wrap text-int">
         <!-- w주석 -->
-        <h1>초대합니다</h1>
-        <p>6월5일</p>
-        <span>더리안 웨딩홀</span>
+        <h1 class="tt">초대합니다</h1>
+        <p class="tt">6월5일</p>
+        <span class="tt">더리안 웨딩홀</span>
       </div>
       <span class="letter-bg">Wedding</span>
     </div>
     <div class="frames">
       <div class="frame-fracture">
         <span class="save">Save</span>
-        <span class="our">Our</span>
+        <span class="our">
+          <span class="our-bg">our</span>
+        </span>
         <span class="date">Date</span>
       </div>
       <figure>
-        <img src="@/assets/images/@temp-img.jpg" alt="">
+        <img src="@/assets/images/img-wed-16.jpg" alt="">
       </figure>
     </div>
     <Fraction
@@ -75,6 +77,7 @@ export default {
 <style lang="scss" scoped>
 .hello {
   position: relative;
+  color: $col-key;
 }
 .title {
   position: relative;
@@ -122,6 +125,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+    color: $col-key;
     > span {
       position: absolute;
       top: 0;
@@ -135,7 +139,14 @@ export default {
     .our {
       top: 50%;
       left: 50%;
+      width: 100px;
       transform: translate(-50%, -50%);
+      text-indent: -9999px;
+      .our-bg {
+        display: block;
+        position: relative;
+        background: url('~@/assets/images/icon-our.png') no-repeat center / cover;
+      }
     }
     .date {
       top: auto;

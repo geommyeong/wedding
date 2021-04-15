@@ -1,19 +1,11 @@
 <template>
   <div class="visitor">
-    <p>댓글란</p>
+    <ContentsTitle
+      title="축하 메세지"
+      :description="'축하 메시지로 \n 마음을 전해주세요.'"
+      :is-right="true"
+    />
     <div class="log-in">
-      <!-- <div class="log" style="display: none;">
-      <h4>아이디</h4>
-      <input v-model="email" type="text" />
-
-      <h4>패스워드</h4>
-      <input v-model="password" type="password" />
-
-      <button
-        type="button"
-        @click="SignUp()"
-      >가입하기</button>
-      </div> -->
 
       <div>
         <form
@@ -109,7 +101,7 @@
         </form>
       </div>
 
-      <div>
+      <div class="msg-list">
         <!-- <button type="button" @click="read()">데이터 읽기</button> -->
         <p class="readData">축하 메시지</p>
         <ul class="data-list">
@@ -118,9 +110,9 @@
             :key="item.name"
           >
             <div>{{item.name ? item.name : 'hello'}}</div>
-            <div>이름: {{ item.name }}</div>
-            <p>내용: {{ item.contents }}</p>
-            <p>작성 시간: {{ item.date }}</p>
+            <div class="name">이름: {{ item.name }}</div>
+            <p class="ms-contents">내용: {{ item.contents }}</p>
+            <p class="ms-date">작성 시간: {{ item.date }}</p>
 
             <button type="button" @click="authCheck(item)"> 삭제 또는 수정 할까요</button>
             <div class="del-popup" :class="{'open' : item.isPopOpen }">
@@ -154,10 +146,14 @@
   </div>
 </template>
 <script>
+import ContentsTitle from '@/components/ContentsTitle.vue'
 import firebase from 'firebase'
 import { db } from '@/main.js'
 
 export default {
+  components: {
+    ContentsTitle
+  },
   data: () => {
     return {
       email: '',
@@ -449,6 +445,7 @@ export default {
       font-size: 16px;
       color: #ccc;
       opacity: 0;
+      opacity: 1;
       transition: .4s cubic-bezier(.25,.8,.25,1);
       transition-duration: .3s;
       &:after {
@@ -472,5 +469,17 @@ export default {
   .btn-submit {
     padding: 10px;
     border: 1px solid #448aff;
+  }
+
+  // 메시지 리스트
+  .msg {
+    &-list {
+      .data-list {
+        width: 100%;
+        > li {
+
+        }
+      }
+    }
   }
 </style>

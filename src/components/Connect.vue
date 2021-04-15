@@ -127,6 +127,7 @@ export default {
   .connect {
     position: relative;
     margin-top: #{$top-gap-2x}px;
+    color: $col-key;
   }
   .connect-person {
     position: relative;
@@ -142,7 +143,7 @@ export default {
         a {
           margin-top: 20px;
           display: block;
-          color: #000;
+          color: $col-key;
           font-size: $font-xs;
           text-decoration: none;
           & + a {
@@ -159,12 +160,14 @@ export default {
     position: relative;
     z-index: 10;
     margin-top: #{$top-gap}px;
+    color: $col-key;
     .btn-parents {
       position: relative;
       display: block;
       margin: 0 auto;
       text-decoration: underline;
       font-size: $font-xs;
+      color: $col-key;
       &:before {
         content: '';
         position: absolute;
@@ -172,7 +175,7 @@ export default {
         right: -18px;
         width: 0px;height: 0px;
         border-top: 7px solid none;
-        border-bottom: 7px solid #000;
+        border-bottom: 7px solid $col-key;
         border-right: 7px solid transparent;
         border-left: 7px solid  transparent;
         transform: rotate(-180deg);
@@ -191,17 +194,19 @@ export default {
             text-align: center;
           }
           .parts {
-            margin-top: 15px;
+            margin-top: 45px;
             & + .parts {
-              margin-top: 15px;
+              margin-top: 25px;
             }
             > strong {
               display: block;
+              margin-bottom: 20px;
+              font-size: $font-xs;
             }
             a {
               display: block;
               margin-top: 10px;
-              color: #000;
+              color: $col-key;
               font-size: $font-xs;
               text-decoration: none;
             }

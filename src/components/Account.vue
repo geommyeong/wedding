@@ -12,7 +12,7 @@
             :href="`https://qr.kakaopay.com/${item.kakaoPay}`"
             target="_blank"
           >
-            {{ str(index) }}에게 송금하기
+            <em :class="index !== 1 ? 'col-gr' : 'col-br'">{{ str(index) }}</em>에게 송금하기
           </a>
           <button
             type="button"
@@ -90,6 +90,7 @@ export default {
     position: relative;
     z-index: 10;
     margin-top: #{$top-gap-2x}px;
+    color: $col-key;
     &-person {
       margin-top: #{$top-gap}px;
       ul {
@@ -98,7 +99,7 @@ export default {
             display: block;
             text-align: center;
             font-size: $font-s;
-            color: #000;
+            color: $col-key;
           }
           button {
             display: block;
@@ -108,6 +109,7 @@ export default {
             font-family: 'Noto-Serif';
             font-size: $font-xxs;
             text-decoration: underline;
+            color: $col-key;
           }
           & + li {
             margin-top: 60px;

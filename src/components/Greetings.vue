@@ -1,9 +1,9 @@
 <template>
   <div class="greetings">
-    <div class="greetings-name">
-      <strong>{{ groom }}</strong>
-      <span>그리고</span>
-      <strong>{{ bridal }}</strong>
+    <div class="greetings-name text-int">
+      <strong class="tt">{{ groom }}</strong>
+      <span class="tt">그리고</span>
+      <strong class="tt">{{ bridal }}</strong>
     </div>
 
     <ContentsTitle
@@ -11,9 +11,9 @@
       :is-right="true"
     />
 
-    <p class="message" v-html="messageBreak(message)" />
+    <p class="message text-int" v-html="messageBreak(message)" />
 
-    <div class="info">
+    <div class="info text-int">
       <p class="info-date" v-html="dday(year, month, date, day, hour)" />
       <div class="info-place">
         <p>{{ city }}</p>
@@ -101,6 +101,13 @@ export default {
       ]
     }
   },
+  mounted () {
+    setTimeout( () => {
+      [...document.querySelectorAll('.text-int')].forEach(item => {
+        item.classList.add('hello')
+      })
+    }, 100)
+  },
   methods: {
     dday (year, month, date, day, hour) {
       if (hour > 12) hour = `오후 ${hour - 12}`
@@ -116,18 +123,19 @@ export default {
   .greetings {
     position: relative;
     margin-top: #{$top-gap-3x}px;
+    color: $col-key;
     &-name {
       position: relative;
       z-index: $z-bg;
       margin-left: $left-gap;
       > strong {
         display: block;
-        margin-top: 15px;
+        margin-top: 25px;
         font-size: $font-lar;
       }
       > span {
         display: block;
-        margin-top: 15px;
+        margin-top: 25px;
         font-size: $font-s;
       }
     }
@@ -141,6 +149,7 @@ export default {
     justify-content: flex-end;
     font-size: $font-xs;
     line-height: 1.6;
+    text-align: right;
   }
 
   .info {

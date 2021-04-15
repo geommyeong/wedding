@@ -13,15 +13,15 @@
         :space-between="20"
         :initial-slide="activeIndex"
       >
-        <!-- :on="thisOn()" -->
         <swiper-slide
           class="photo-frame"
           v-for="(item, index) in photoList"
           :key="index"
         >
-          <img
-            class="pop-photo"
-            :src="require(`@/assets/images/${item.img}.jpg`)" alt="">
+            <img
+              class="pop-photo"
+              :src="require(`@/assets/images/${item.img}.jpg`)" alt=""
+            >
         </swiper-slide>
       </swiper>
     </div>
@@ -66,36 +66,32 @@ export default {
         width: 20px;
         height: 20px;
         z-index: 10;
-        // background: red url('/assets/images/btn_pop_close') no-repeat center / cover;
         text-indent: -9999px;
-        &:before {
+        &:before, &:after {
           content: '';
           position: absolute;
-          top: 0;
+          top: 10px;
           left: 0;
           width: 20px;
-          height: 1px;
+          height: 2px;
           background-color: #fff;
+          transform: rotate(-45deg);
+        }
+        &:after {
+          transform: rotate(45deg);
         }
       }
-      // .popup-photo-swiper {
-      //   position: absolute;
-      //   top: 50%;
-      //   left: 50%;
-      //   transform: translate(-50%, -50%);
-      // //   position: relative;
-      // //   width: 100%;
-      // //   height: 100vh;
-      // //   .photo-frame {
-      // //     position: absolute;
-      // //     top: 50%;
-      // //     left: 50%;
-      // //     transform: translate(-50%, -50%);
-      // //   }
-      // }
     }
   }
-  .pop-photo {
+  .photo-frame {
     width: 100%;
+    height: 100vh;
+    .pop-photo {
+      position: absolute;
+      top:50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
   }
 </style>

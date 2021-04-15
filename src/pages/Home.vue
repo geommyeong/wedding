@@ -101,22 +101,24 @@ export default {
       }
       ],
       ourPhoto: [
-        {
-          id: '하하하1하',
-          img: '@temp-img'
-        },
-        {
-          id: '하하하2하',
-          img: '@temp-img'
-        },
-        {
-          id: '하하하3하',
-          img: '@temp-img'
-        },
-        {
-          id: '하하하4하',
-          img: '@temp-img'
-        }
+        {img: 'img-wed-1'},
+        {img: 'img-wed-2'},
+        {img: 'img-wed-3'},
+        {img: 'img-wed-4'},
+        {img: 'img-wed-5'},
+        {img: 'img-wed-6'},
+        {img: 'img-wed-7'},
+        {img: 'img-wed-8'},
+        {img: 'img-wed-9'},
+        {img: 'img-wed-10'},
+        {img: 'img-wed-11'},
+        {img: 'img-wed-12'},
+        {img: 'img-wed-13'},
+        {img: 'img-wed-14'},
+        {img: 'img-wed-15'},
+        {img: 'img-wed-16'},
+        {img: 'img-wed-17'},
+        {img: 'img-wed-18'}
       ],
       accounts: [
         {
@@ -131,6 +133,26 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    // let arr = [...document.querySelectorAll('.text-int')].map((itm) => {
+    //   return itm.offsetTop
+    // })
+
+    // console.log(arr)
+
+    // window.addEventListener('scroll', () => {
+    //   let scrollLocation = document.documentElement.scrollTop
+    //   let windowHeight = window.innerHeight
+    //   if (scrollLocation < arr) {
+    //     arr.classList.add('aaa')
+    //   }
+    //   console.log(scrollLocation, arr, scrollLocation < arr)
+
+
+    // })
+
+
   },
   methods: {
     callModalOpen (idx) {

@@ -186,10 +186,13 @@ export default {
 <style lang="scss">
 .maps {
   position: relative;
+  margin-top: #{$top-gap-2x}px;
+  color: $col-key;
 }
 #map {
-  width: 100%;
-  height: 500px;
+  left: #{-$side-padding};
+  width: calc(100% + #{$side-padding * 2});
+  height: 400px;
   background-color: pink;
 }
 .way {
