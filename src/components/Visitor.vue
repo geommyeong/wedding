@@ -3,7 +3,6 @@
     <ContentsTitle
       title="축하 메세지"
       :description="'축하 메시지로 \n 마음을 전해주세요.'"
-      :is-right="true"
     />
     <div class="log-in">
 
@@ -27,7 +26,6 @@
               v-model="name"
               type="text"
               name="name"
-              placeholder="이름을 입력해주세요"
               @focus="nameFocused = true"
               @blur="nameFocused = false"
               :maxlength="5"
@@ -36,40 +34,85 @@
               <!-- @blur="name.length > 0 ? nameFocused = true : nameFocused = false" -->
             <button
               type="button"
-              class="btn-submit"
+              class="btn-submit btn-dup-check"
               @click="checkDuplicateName(name)"
             >
               중복확인
             </button>
-            <p
-              :class="[
-                'fld-notice',
-                {'checked' : name.length >= 2}
-              ]"
-            >{{ name.length }} / 5</p>
-            <p>한글과 숫자만 입력 가능합니다.</p>
-            <p>이름을 입력해주세요 (한글 2 ~ 4 자리만 가능합니다.)</p>
+            <div class="fld-notice-wrap">
+              <p
+                :class="[
+                  'fld-notice',
+                  {'checked' : name.length >= 2}
+                ]"
+              >{{ name.length }} / 5</p>
+              <p>한글과 숫자만 입력 가능합니다.</p>
+              <p>이름을 입력해주세요 (한글 2 ~ 4 자리만 가능합니다.)</p>
+            </div>
           </div>
 
           <!-- <h4>비밀번호</h4> -->
-          <label for="mypassword">비밀번호</label>
-          <input
-            v-model="mypassword"
-            type="password"
-            name="mypassword"
-            id="mypassword"
-            placeholder="비밀번호를 입력해주세요"
-            maxlength="4"
-            required
-          />
-          <p
+          <div
             :class="[
-              'fld-notice',
-              {'checked' : mypassword.length === 4 }
+              'fm-field',
+              {'fm-filled' : pswdFilled},
+              {'fm-focused' : pswdFocused}
             ]"
-          >{{ mypassword.length }} / 4</p>
-          <p>비밀번호를 입력해주세요 (숫자 4자리)</p>
-          <p>숫자만 입력 가능합니다.</p>
+          >
+            <label for="mypassword">비밀번호</label>
+            <input
+              id="password"
+              v-model="mypassword"
+              type="password"
+              name="mypassword"
+              @focus="pswdFocused = true"
+              @blur="pswdFocused = false"
+              maxlength="4"
+              required
+            />
+            <div class="fld-notice-wrap">
+              <p
+                :class="[
+                  'fld-notice',
+                  {'checked' : mypassword.length === 4 }
+                ]"
+              >{{ mypassword.length }} / 4</p>
+              <p>비밀번호를 입력해주세요 (숫자 4자리)</p>
+              <p>숫자만 입력 가능합니다.</p>
+            </div>
+          </div>
+
+          <div
+            :class="[
+              'fm-field',
+              {'fm-filled' : txfdFilled},
+              {'fm-focused' : txfdFocused}
+            ]"
+          >
+            <label for="mytextarea">텍스트 필드</label>
+            <textarea
+              v-model="mytextarea"
+              name="mytextarea"
+              id="mytextarea"
+              maxlength="100"
+              cols="30"
+              rows="10"
+              @focus="txfdFocused = true"
+              @blur="txfdFocused = false"
+              required
+            />
+            <div class="fld-notice-wrap">
+              <p
+                :class="[
+                  'fld-notice',
+                  {'checked' : mytextarea.length >= 1 }
+                ]"
+              >{{ mytextarea.length }} / 200</p>
+              <p>최대 200자 까지 입력 가능합니다.</p>
+            </div>
+          </div>
+
+          
 
           <!-- <h4>텍스트 필드</h4> -->
           <label for="mytextarea">텍스트 필드</label>
@@ -163,6 +206,10 @@ export default {
       checkDupName: false,
       nameFilled: false,
       nameFocused: false,
+      pswdFilled: false,
+      pswdFocused: false,
+      txfdFilled: false,
+      txfdFocused: false,
       mypassword: '',
       mytextarea: '',
       erpassword: '',
@@ -180,7 +227,13 @@ export default {
       return this.name = this.name.replace(/[^가-힣ㄱ-ㅎ0-9]/g, '')
     },
     mypassword () {
+      this.mypassword.length === 4 ? this.pswdFilled = true : this.pswdFilled = false
       return this.mypassword = this.mypassword.replace(/[^0-9]/g, '')
+    },
+    mytextfiled () {
+      this.txfd.length >= 1
+        ? this.txfdFilled = true
+        : this.txfdFilled = false
     }
   },
   methods: {
@@ -424,23 +477,30 @@ export default {
 
   .fm-field {
     position: relative;
+    width: 80%;
+    max-width: 380px;
     padding: 30px 0;
     &.fm-focused {
       label {
-        top: 0;
+        top: 18px;
         color: #448aff;
         opacity: 1;
+        font-size: 12px;
+      }
+      input {
+        border-color: #448aff;
       }
     }
     &.fm-filled {
       label {
-        top: 0;
+        top: 18px;
         opacity: 1;
+        font-size: 12px;
       }
     }
     label {
       position: absolute;
-      top: 12px;
+      top: 38px;
       left: 0;
       font-size: 16px;
       color: #ccc;
@@ -453,22 +513,39 @@ export default {
         font-size: 10;
       }
     }
-    input {
+    input, textarea {
       display: block;
+      width: 100%;
       height: 32px;
       border: none;
+      background: transparent;
+      border-bottom: 1px solid #ccc;
       transition: .4s cubic-bezier(.25,.8,.25,1);
       transition-property: font-size,padding-top,color;
+      &:focus {
+        outline: none;
+      }
+    }
+    textarea {
+      height: 64px;
     }
   }
-  .fld-notice {
-    &.checked {
-      color: #448aff;
+  .fld-notice-wrap {
+    margin-top: 10px;
+    font-size: 10px;
+    line-height: 1.5;
+    .fld-notice {
+      &.checked {
+        color: #448aff;
+      }
     }
   }
   .btn-submit {
     padding: 10px;
     border: 1px solid #448aff;
+  }
+  .btn-dup-check {
+    display: none;
   }
 
   // 메시지 리스트

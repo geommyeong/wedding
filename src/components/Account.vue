@@ -2,7 +2,7 @@
   <div class="account">
     <ContentsTitle
       title="마음을 전해 볼까요"
-      :description="'마음은 언제나 옳죠.\n카카오페이는 언제나 열려 있습니다.\n아, 물론 계좌번호도 있습니다.'"
+      :description="'카카오페이는 언제나 열려 있습니다.\n아, 물론 계좌번호도 있습니다.'"
     />
 
     <div class="account-person">
@@ -16,19 +16,24 @@
           </a>
           <button
             type="button"
-            @click="showAccount(item)"
+            @click="$emit('open-popup', item, index)"
           >
             혹은, {{ str(index) }}계좌번호 보기
           </button>
-
-          <div
-            v-if="isAccPopOpen"
-            class="accout-pop"
-          >
-            {{ str(index) }}!!!
-          </div>
         </li>
       </ul>
+      <!-- <div
+        v-if="isAccPopOpen"
+        class="account-pop"
+      >
+        {{ who }}
+        {{ accountBank}}
+        {{ accountNumber }}
+        <button
+          type="button"
+          @click="closeAccount()"
+          >Close</button>
+      </div> -->
     </div>
 
     <Fraction
@@ -87,10 +92,17 @@ export default {
         return '신부'
       }
     },
-    showAccount (itm) {
-      this.isAccPopOpen = true
-      console.log(itm)
-    }
+    // showAccount (itm, idx) {
+    //   this.isAccPopOpen = true
+    //   this.accountBank = itm.bank
+    //   this.accountNumber = itm.accountNum
+    //   this.who = idx === 0 ? '신랑' : '신부'
+    //   document.querySelector('body').classList.add('dimmed')
+    // },
+    // closeAccount () {
+    //   this.isAccPopOpen = false;
+    //   document.querySelector('body').classList.remove('dimmed')
+    // }
   }
 }
 </script>
@@ -98,7 +110,7 @@ export default {
   .account {
     position: relative;
     z-index: 10;
-    margin-top: #{$top-gap-2x}px;
+    margin-top: #{$top-gap}px;
     color: $col-key;
     &-person {
       margin-top: #{$top-gap}px;

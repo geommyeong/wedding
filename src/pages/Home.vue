@@ -1,5 +1,9 @@
 <template>
-  <!-- <Hello /> -->
+  <Hello
+    :key-visual="keyVisual"
+    :groom="groom"
+    :bridal="bridal"
+  />
   <Greetings
     :groom-father="groomFather"
     :groom-mother="groomMother"
@@ -17,48 +21,66 @@
     :hour="14"
     :message="'서로에게 가장 좋은 친구인 두 사람이\n 이제 서로 하나가 되어\n소중한 날들을 함께 걸어가려고 합니다.\n그 약속의 자리에 귀한 걸음 하시어\n따뜻한 마음을 담아 축하해주시면\n더 없는 기쁨으로 간직하겠습니다.'"
   />
-  <Connect
-    :connect="connect"
-    :is-parents="true"
-    :connect-parents="connectParents"
-  />
   <Photos
     :photo-list="ourPhoto"
     @open-modal="callModalOpen"
   />
   <Maps />
+  <Connect
+    :connect="connect"
+    :is-parents="true"
+    :connect-parents="connectParents"
+  />
   <Account
     :accounts="accounts"
+    @open-popup="callAccountPopOpen"
   />
   <PopupPhoto
+    v-if="isModalViewed"
     :photo-list="ourPhoto"
     :active-index="myIndex"
-    v-if="isModalViewed"
     @close-modal="callModalClose()"
-    />
+  />
+  <PopupAccount
+    v-if="isAccPopOpen"
+    :who="who"
+    :account-bank="accountBank"
+    :account-num="accountNumber"
+    @close-account-pop="callAccountPopClose()"
+  />
 </template>
 <script>
+import Hello from '@/components/Hello.vue'
 import Greetings from '@/components/Greetings.vue'
 import Connect from '@/components/Connect.vue'
 import Account from '@/components/Account.vue'
 import Photos from '@/components/Photos.vue'
 import Maps from '@/components/Maps.vue'
 import PopupPhoto from '@/components/PopupPhoto.vue'
+import PopupAccount from '@/components/PopupAccount.vue'
 
 export default {
   name: 'App',
   components: {
+    Hello,
     Greetings,
     Connect,
     Photos,
     Maps,
     Account,
-    PopupPhoto
+    PopupPhoto,
+    PopupAccount
   },
   data() {
     return {
       myIndex: null,
       isModalViewed: false,
+      isAccPopOpen: false,
+      who: '',
+      accountBank: '',
+      accountNumber: '',
+
+      keyVisual: 'img-wed-16',
       groomFather: '황두영',
       groomMother: '윤현',
       bridalFather: '강용강',
@@ -128,8 +150,8 @@ export default {
         },
         {
           kakaoPay: '281006011000060860445104',
-          bank: '기업은행',
-          accountNum: '11111111111111'
+          bank: '수협',
+          accountNum: '101010-690630'
         }
       ]
     }
@@ -162,9 +184,20 @@ export default {
 
       console.log(idx, this.myIndex)
     },
-    callModalClose() {
+    callModalClose () {
       this.isModalViewed = false
       document.querySelector('body').classList.remove('scroll-lock')
+    },
+    callAccountPopOpen (itm, idx) {
+      this.isAccPopOpen = true
+      this.accountBank = itm.bank
+      this.accountNumber = itm.accountNum
+      this.who = (idx === 0 ? `신랑 (${this.groom})` : `신부 (${this.bridal})`)
+      document.querySelector('body').classList.add('dimmed')
+    },
+    callAccountPopClose () {
+      this.isAccPopOpen = false;
+      document.querySelector('body').classList.remove('dimmed')
     }
   }
 }

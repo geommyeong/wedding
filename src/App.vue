@@ -1,20 +1,14 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" />
-    <router-link to="/">Home</router-link>
-    <router-link to="/card">Card</router-link> -->
-    <Hello />
     <router-view />
     <Visitor />
 </template>
 
 <script>
 import Visitor from '@/components/Visitor.vue'
-import Hello from '@/components/Hello.vue'
 
 export default {
   name: 'App',
   components: {
-    Hello,
     Visitor
   }
 }

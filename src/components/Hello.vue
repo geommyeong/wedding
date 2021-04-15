@@ -1,25 +1,14 @@
 <template>
   <div class="hello">
-    <div class="title">
-      <div class="letter-wrap text-int">
-        <!-- w주석 -->
-        <h1 class="tt">초대합니다</h1>
-        <p class="tt">6월5일</p>
-        <span class="tt">더리안 웨딩홀</span>
-      </div>
-      <span class="letter-bg">Wedding</span>
-    </div>
     <div class="frames">
-      <div class="frame-fracture">
-        <span class="save">Save</span>
-        <span class="our">
-          <span class="our-bg">our</span>
-        </span>
-        <span class="date">Date</span>
-      </div>
       <figure>
-        <img src="@/assets/images/img-wed-16.jpg" alt="">
+        <img :src="require(`@/assets/images/${keyVisual}.jpg`)" alt="key visual">
       </figure>
+      <div class="greetings-name text-int">
+        <strong class="tt">{{ groom }}</strong>
+        <span class="tt">그리고</span>
+        <strong class="tt">{{ bridal }}</strong>
+      </div>
     </div>
     <Fraction
       :fractions="fractions"
@@ -35,12 +24,12 @@ export default {
     Fraction
   },
   props: {
-    groomFather: String,
-    groomMother: String,
-    bridalFather: String,
-    bridalMother: String,
+    keyVisual: {
+      type: String,
+      default: 'img-wed-16'
+    },
     groom: String,
-    bridal: String
+    bridal: String,
   },
   data: () => {
     return {
@@ -49,12 +38,12 @@ export default {
           shape: 'circle-small',
           color: 'orange',
           top: 7,
-          right: 10
+          right: 25
         },
         {
           shape: 'circle',
           color: 'brown',
-          top: 8,
+          top: 15,
           right: 6
         },
         {
@@ -66,8 +55,8 @@ export default {
         {
           shape: 'triangle',
           color: 'blue',
-          top: 39,
-          right: 33
+          top: 69,
+          right: 31
         }
       ]
     }
@@ -79,87 +68,49 @@ export default {
   position: relative;
   color: $col-key;
 }
-.title {
-  position: relative;
-  height: 80vh;
-  .letter-wrap {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 10;
-    h1 {
-      font-size: $font-lar;
-    }
-    p {
-      margin-top: 25rem;
-      font-size: $font-mid;
-    }
-    span {
-      display: block;
-      margin-top: 25rem;
-      font-size: $font-xs;
-    }
-  }
-  .letter-bg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-8deg);
-    font-size: $font-max;
-    opacity: 0.2;
-    color: #FFC08F;
-  }
-}
 
 .frames {
-  position: relative;
-  display: flex;
-  width: 92.30%;
-  margin: 20vh -15px 0 auto;
-  .frame-fracture {
-    position: absolute;
-    top: 0;
-    left: 0;
+  display: block;
+  width: 100%;
+  width: calc(100% + #{$side-padding * 2});
+  margin: 0 -15px 0;
+  figure {
+    display: block;
+    position: relative;
     width: 100%;
-    height: 100%;
-    color: $col-key;
-    > span {
+    &:before {
+      content:'';
       position: absolute;
       top: 0;
       left: 0;
-      font-size: $font-fracture;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      opacity: 0.3;
     }
-    .save {
-      left: 15px;
-      top: -20px;
-    }
-    .our {
-      top: 50%;
-      left: 50%;
-      width: 100px;
-      transform: translate(-50%, -50%);
-      text-indent: -9999px;
-      .our-bg {
-        display: block;
-        position: relative;
-        background: url('~@/assets/images/icon-our.png') no-repeat center / cover;
-      }
-    }
-    .date {
-      top: auto;
-      right: 15px;
-      bottom: -20px;
-      left: auto;
-    }
-  }
-  figure {
-    width: 100%;
     img {
+      display: block;
       width: 100%;
     }
+  }
+}
+
+.greetings-name {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: $z-bg;
+  margin-left: $left-gap;
+  color: #fff;
+  > strong {
+    display: block;
+    margin-top: 25px;
+    font-size: $font-lar;
+  }
+  > span {
+    display: block;
+    margin-top: 25px;
+    font-size: $font-s;
   }
 }
 

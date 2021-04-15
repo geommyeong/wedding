@@ -33,7 +33,7 @@ export default {
   .contents-title {
     position: relative;
     z-index: $z-bg;
-    margin-bottom: 34px;
+    margin: 0 0 34px $left-gap;
     color: $col-key;
     &.is-right {
       text-align: right;

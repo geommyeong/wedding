@@ -96,7 +96,7 @@ export default {
     // height: 500px;
 
     .photo-frame {
-      width: 68%;
+      width: 85%;
       .btn-call-pop {
         padding: 0;
       }

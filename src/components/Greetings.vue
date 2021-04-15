@@ -1,14 +1,8 @@
 <template>
   <div class="greetings">
-    <div class="greetings-name text-int">
-      <strong class="tt">{{ groom }}</strong>
-      <span class="tt">그리고</span>
-      <strong class="tt">{{ bridal }}</strong>
-    </div>
 
     <ContentsTitle
       title="초대합니다."
-      :is-right="true"
     />
 
     <p class="message text-int" v-html="messageBreak(message)" />
@@ -89,8 +83,8 @@ export default {
         {
           shape: 'triangle',
           color: 'red',
-          top: 13,
-          left: 58
+          top: 63,
+          left: 80
         },
         {
           shape: 'triangle',
@@ -122,23 +116,7 @@ export default {
 <style lang="scss" scoped>
   .greetings {
     position: relative;
-    margin-top: #{$top-gap-3x}px;
     color: $col-key;
-    &-name {
-      position: relative;
-      z-index: $z-bg;
-      margin-left: $left-gap;
-      > strong {
-        display: block;
-        margin-top: 25px;
-        font-size: $font-lar;
-      }
-      > span {
-        display: block;
-        margin-top: 25px;
-        font-size: $font-s;
-      }
-    }
   }
 
   .message {
@@ -149,14 +127,14 @@ export default {
     justify-content: flex-end;
     font-size: $font-xs;
     line-height: 1.6;
-    text-align: right;
   }
 
   .info {
     position: relative;
     z-index: $z-bg;
-    margin: #{$top-gap}px 0 0 $left-gap-center;
+    margin: #{$top-gap}px 0 0 $left-gap;
     font-size: $font-s;
+    line-height: 1.6;
     &-place {
       margin-top: 20px;
       line-height: 1.4;
@@ -167,11 +145,11 @@ export default {
   .parents {
     position: relative;
     z-index: $z-bg;
-    margin: #{$top-gap-2x}px 0 0 $left-gap-center;
+    margin: #{$top-gap}px 0 0 $left-gap;
     > p {
       .parents-name {
         display: inline-block;
-        font-size: $font-s;
+        font-size: $font-xs;
         & + .parents-name {
           position: relative;
           margin-left: 30rem;
@@ -188,22 +166,23 @@ export default {
         }
       }
       > em {
-        display: block;
-        margin-top: 15px;
-        font-size: $font-xs;
+        display: inline-block;
+        margin-left: 5px;
+        font-size: $font-xxs;
         & + strong {
           display: block;
-          margin-top: 40px;
-          font-size: $font-mid-lar;
+          margin-top: 10px;
+          font-size: $font-xs;
+          font-weight: bold;
         }
       }
       & + p {
-        margin-top: #{$top-gap}px;
+        margin-top: 40px;
       }
     }
   }
 
   .contents-title {
-    margin-top: #{$top-gap-2x}px;
+    margin-top: #{$top-gap}px;
   }
 </style>

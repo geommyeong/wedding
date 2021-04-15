@@ -14,8 +14,10 @@
           v-for="(item, index) in connect"
           :key="index"
         >
-          <em>{{ str(index) }}</em>
-          <strong>{{ item.name }}</strong>
+          <p>
+            <em>{{ str(index) }}</em>
+            <strong>{{ item.name }}</strong>
+          </p>
           <a :href="`tel:${item.phone}`">전화 하기</a>
           <a :href="`sms:${item.phone}`">문자 하기</a>
         </li>
@@ -132,26 +134,27 @@ export default {
   .connect-person {
     position: relative;
     z-index: 10;
-    margin-top: #{$top-gap}px;
+    margin-top: #{$top-gap-h}px;
     ul {
       li {
         text-align: center;
-        font-size: $font-s;
+        font-size: $font-xs;
         strong {
-          margin-left: 20px;
+          margin-left: 10px;
         }
         a {
-          margin-top: 20px;
-          display: block;
+          display: inline-block;
+          width: 52%;
+          margin: 10px auto 0;
           color: $col-key;
-          font-size: $font-xs;
-          text-decoration: none;
+          font-size: $font-xxs;
+          text-decoration: underline;
           & + a {
             margin-top: 10px;
           }
         }
         & + li {
-          margin-top: 70px;
+          margin-top: 40px;
         }
       }
     }
@@ -159,7 +162,7 @@ export default {
   .connect-to-parents {
     position: relative;
     z-index: 10;
-    margin-top: #{$top-gap}px;
+    margin-top: #{$top-gap-h}px;
     color: $col-key;
     .btn-parents {
       position: relative;
@@ -194,7 +197,7 @@ export default {
             text-align: center;
           }
           .parts {
-            margin-top: 45px;
+            margin-top: 30px;
             & + .parts {
               margin-top: 25px;
             }
@@ -204,11 +207,12 @@ export default {
               font-size: $font-xs;
             }
             a {
-              display: block;
-              margin-top: 10px;
+              display: inline-block;
+              width: 52%;
+              margin: 10px auto 0;
               color: $col-key;
-              font-size: $font-xs;
-              text-decoration: none;
+              font-size: $font-xxs;
+              text-decoration: underline;
             }
           }
           & + li {
