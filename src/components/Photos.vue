@@ -61,14 +61,14 @@ export default {
         {
           shape: 'triangle',
           color: 'blue',
-          top: 230,
-          left: -10
+          top: 106,
+          left: 10
         },
         {
           shape: 'triangle',
           color: 'red',
-          top: -47,
-          right: 61
+          top: -12,
+          right: 18
         }
       ]
     }

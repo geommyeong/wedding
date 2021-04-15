@@ -85,26 +85,26 @@ export default {
         {
           shape: 'circle-small',
           color: 'orange',
-          top: 77,
-          right: 77
+          top: 11,
+          right: 17
         },
         {
           shape: 'circle',
           color: 'brown',
-          top: 91,
-          right: 65
+          top: 14,
+          right: 13
         },
         {
           shape: 'triangle',
           color: 'red',
-          top: 147,
-          left: 43
+          top: -105,
+          left: 86
         },
         {
           shape: 'triangle',
           color: 'blue',
-          top: 427,
-          right: 108
+          top: -71,
+          right: 80
         }
       ]
     }
@@ -210,6 +210,9 @@ export default {
               font-size: $font-xs;
               text-decoration: none;
             }
+          }
+          & + li {
+            margin-top: 100px;
           }
         }
       }

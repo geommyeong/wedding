@@ -20,6 +20,13 @@
           >
             혹은, {{ str(index) }}계좌번호 보기
           </button>
+
+          <div
+            v-if="isAccPopOpen"
+            class="accout-pop"
+          >
+            {{ str(index) }}!!!
+          </div>
         </li>
       </ul>
     </div>
@@ -43,30 +50,31 @@ export default {
   },
   data: () => {
     return {
+      isAccPopOpen: false,
       fractions: [
         {
           shape: 'circle',
           color: 'brown',
-          top: 150,
-          left: 70
+          top: 76,
+          left: 4
         },
         {
           shape: 'circle-small',
           color: 'orange',
-          top: 150,
-          left: 66
+          top: 75,
+          left: 6
         },
         {
           shape: 'triangle',
           color: 'red',
-          top: -60,
-          right: 60
+          top: 28,
+          right: 13
         },
         {
           shape: 'triangle',
           color: 'blue',
-          bottom: 87,
-          right: 108
+          bottom: 28,
+          right: -23
         }
       ]
     }
@@ -80,6 +88,7 @@ export default {
       }
     },
     showAccount (itm) {
+      isAccPopOpen = true
       console.log(itm)
     }
   }

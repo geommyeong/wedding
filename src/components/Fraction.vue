@@ -8,10 +8,10 @@
         `fraction-num-${index}`,
         `fraction-col-${item.color}`]"
       :style="[
-        `top:${item.top ? item.top + 'px' : 'auto'};
-         right:${item.right ? item.right + 'px' : 'auto'};
-         bottom:${item.bottom ? item.bottom + 'px' : 'auto'};
-         left:${item.left ? item.left + 'px' : 'auto'};
+        `top:${item.top ? item.top + '%' : 'auto'};
+         right:${item.right ? item.right + '%' : 'auto'};
+         bottom:${item.bottom ? item.bottom + '%' : 'auto'};
+         left:${item.left ? item.left + '%' : 'auto'};
         `
       ]"
       >

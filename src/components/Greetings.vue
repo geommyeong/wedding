@@ -77,26 +77,26 @@ export default {
         {
           shape: 'circle-small',
           color: 'orange',
-          top: -126,
-          right: 150
+          top: -6,
+          right: 41
         },
         {
           shape: 'circle',
           color: 'brown',
-          top: -150,
-          right: 140
+          top: -7.2,
+          right: 37
         },
         {
           shape: 'triangle',
           color: 'red',
-          top: 207,
+          top: 13,
           left: 58
         },
         {
           shape: 'triangle',
           color: 'blue',
-          top: 587,
-          right: 108
+          top: 28,
+          right: 88
         }
       ]
     }

@@ -158,11 +158,13 @@ export default {
     callModalOpen (idx) {
       this.isModalViewed = true
       this.myIndex = idx
+      document.querySelector('body').classList.add('scroll-lock')
 
       console.log(idx, this.myIndex)
     },
     callModalClose() {
       this.isModalViewed = false
+      document.querySelector('body').classList.remove('scroll-lock')
     }
   }
 }

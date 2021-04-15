@@ -177,7 +177,7 @@ export default {
       this.name.length >= 2
         ? this.nameFilled = true
         : this.nameFilled = false
-      return this.name = this.name.replace(/[^가-힣0-9]/g, '')
+      return this.name = this.name.replace(/[^가-힣ㄱ-ㅎ0-9]/g, '')
     },
     mypassword () {
       return this.mypassword = this.mypassword.replace(/[^0-9]/g, '')
