@@ -3,15 +3,15 @@
     <div class="frames">
       <figure>
         <img :src="require(`@/assets/images/${keyVisual}.jpg`)" alt="key visual">
+        <div
+          class="greetings-name text-int"
+          ref="greetingName"
+        >
+          <strong class="tt">{{ groom }}</strong>
+          <span class="tt">그리고</span>
+          <strong class="tt">{{ bridal }}</strong>
+        </div>
       </figure>
-      <div
-        class="greetings-name text-int"
-        ref="greetingName"
-      >
-        <strong class="tt">{{ groom }}</strong>
-        <span class="tt">그리고</span>
-        <strong class="tt">{{ bridal }}</strong>
-      </div>
     </div>
     <Fraction
       :fractions="fractions"
@@ -75,7 +75,7 @@ export default {
 .hello-kv {
   position: relative;
   height: 100vh;
-  margin-bottom: #{$top-gap}px;
+  // margin-bottom: #{$top-gap}px;
   color: $col-key;
 }
 
@@ -107,7 +107,7 @@ export default {
 
 .greetings-name {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 0;
   z-index: $z-bg;
   margin-left: $left-gap;

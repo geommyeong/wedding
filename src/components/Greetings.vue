@@ -16,14 +16,14 @@
     </div>
 
     <div class="parents">
-      <p class="text-int">
+      <p>
         <strong class="parents-name tt">{{ groomFather }}</strong>
         <strong class="parents-name tt">{{ groomMother }}</strong>
         <em class="tt">의 장남</em>
         <strong class="tt">{{ groom }}</strong>
       </p>
 
-      <p class="text-int">
+      <p>
         <strong class="parents-name tt">{{ bridalFather }}</strong>
         <strong class="parents-name tt">{{ bridalMother }}</strong>
         <em class="tt">의 장녀</em>
