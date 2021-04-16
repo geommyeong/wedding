@@ -41,24 +41,24 @@ export default {
           top: 38,
           right: 12
         },
-        {
-          shape: 'triangle',
-          color: 'blue',
-          bottom:64,
-          right: 38
-        },
-        {
-          shape: 'circle-small',
-          color: 'orange',
-          top: 72,
-          left: 68
-        },
-        {
-          shape: 'circle-small',
-          color: 'red',
-          top: 62,
-          left: 42
-        }
+        // {
+        //   shape: 'triangle',
+        //   color: 'blue',
+        //   bottom:64,
+        //   right: 38
+        // },
+        // {
+        //   shape: 'circle-small',
+        //   color: 'orange',
+        //   top: 72,
+        //   left: 68
+        // },
+        // {
+        //   shape: 'circle-small',
+        //   color: 'red',
+        //   top: 62,
+        //   left: 42
+        // }
       ]
     }
   }

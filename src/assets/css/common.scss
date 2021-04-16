@@ -55,6 +55,11 @@ textarea {
 	margin: 0 auto;
 	padding: 0 #{$side-padding};
 	font-size: 10rem;
+	transition: background-color .7s ease-in;
+	&.col {
+		background: #ecf1e8;
+		transition: background-color .7s ease-in;
+	}
 }
 
 .scroll-lock {
@@ -101,7 +106,7 @@ textarea {
 			transition: transform 1s cubic-bezier(.15,.85,.45,1),opacity 1s cubic-bezier(.32,.94,.6,1);
 			@for $i from 1 through 10 {
 				&:nth-child(#{$i}) {
-					transition-delay: #{$i * 0.2s};
+					transition-delay: #{$i * 0.25s};
 				}
 			}
 		}

@@ -25,7 +25,8 @@
     :photo-list="ourPhoto"
     @open-modal="callModalOpen"
   />
-  <Maps />
+  <Maps
+  />
   <Connect
     :connect="connect"
     :is-parents="true"
@@ -80,6 +81,7 @@ export default {
       myIndex: null,
       isModalViewed: false,
       isAccPopOpen: false,
+      isBackgroundChange: false,
       who: '',
       accountBank: '',
       accountNumber: '',
@@ -163,6 +165,10 @@ export default {
   },
   mounted () {
     this.gsaps()
+    window.addEventListener('scroll', this.scrollEvt)
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.scrollEvt)
   },
   methods: {
     gsaps () {
@@ -176,7 +182,7 @@ export default {
             gsap.utils.toArray(texts).forEach( text => {
               ScrollTrigger.create({
                 trigger: text,
-                start: "top 60%",
+                start: "top 90%",
                 onEnter: () => {
                   text.classList.add('hello')
                 }
@@ -185,7 +191,14 @@ export default {
           }
         })
       })
-
+    },
+    scrollEvt (e) {
+      let targetTop = document.querySelector('.connect').getBoundingClientRect().y - (window.innerHeight * 0.5)
+      if (targetTop < 0) {
+        document.querySelector('#app').classList.add('col')
+      } else {
+        document.querySelector('#app').classList.remove('col')
+      }
     },
     callModalOpen (idx) {
       this.isModalViewed = true

@@ -74,8 +74,9 @@ export default {
 <style lang="scss" scoped>
 .hello-kv {
   position: relative;
+  height: 100vh;
+  margin-bottom: #{$top-gap}px;
   color: $col-key;
-  margin-bottom: #{$top-gap-2x}px;
 }
 
 .frames {

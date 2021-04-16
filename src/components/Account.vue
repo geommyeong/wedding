@@ -2,7 +2,7 @@
   <div class="account">
     <ContentsTitle
       title="마음 전하기"
-      description="<span class='tt inline'>카카오페이</span><span class='tt inline'><span class='tt inline'>는</span> <span class='tt inline'>언제나 열려 있습니다.</span><span class='tt'>아, 물론 계좌번호도 있습니다.</span>"
+      description="<span class='tt inline'>카카오페이</span><span class='tt inline'>는 언제나 열려 있습니다.</span><span class='tt'>아, 물론 계좌번호도 있습니다.</span>"
     />
 
     <div class="account-person">
