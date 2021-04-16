@@ -1,39 +1,33 @@
 <template>
   <div class="account">
     <ContentsTitle
-      title="마음을 전해 볼까요"
-      :description="'카카오페이는 언제나 열려 있습니다.\n아, 물론 계좌번호도 있습니다.'"
+      title="마음 전하기"
+      description="<span class='tt inline'>카카오페이</span><span class='tt inline'><span class='tt inline'>는</span> <span class='tt inline'>언제나 열려 있습니다.</span><span class='tt'>아, 물론 계좌번호도 있습니다.</span>"
     />
 
     <div class="account-person">
       <ul>
-        <li v-for="(item, index) in accounts" :key="item+index">
+        <li
+          class="text-int"
+          v-for="(item, index) in accounts" :key="item+index"
+        >
           <a
             :href="`https://qr.kakaopay.com/${item.kakaoPay}`"
             target="_blank"
+            class="tt"
           >
             <em :class="index !== 1 ? 'col-gr' : 'col-br'">{{ str(index) }}</em>에게 송금하기
           </a>
+          <span class="tt">혹은, </span>
           <button
             type="button"
+            class="tt"
             @click="$emit('open-popup', item, index)"
           >
-            혹은, {{ str(index) }}계좌번호 보기
+            {{ str(index) }}계좌번호 보기
           </button>
         </li>
       </ul>
-      <!-- <div
-        v-if="isAccPopOpen"
-        class="account-pop"
-      >
-        {{ who }}
-        {{ accountBank}}
-        {{ accountNumber }}
-        <button
-          type="button"
-          @click="closeAccount()"
-          >Close</button>
-      </div> -->
     </div>
 
     <Fraction
@@ -91,18 +85,7 @@ export default {
       } else {
         return '신부'
       }
-    },
-    // showAccount (itm, idx) {
-    //   this.isAccPopOpen = true
-    //   this.accountBank = itm.bank
-    //   this.accountNumber = itm.accountNum
-    //   this.who = idx === 0 ? '신랑' : '신부'
-    //   document.querySelector('body').classList.add('dimmed')
-    // },
-    // closeAccount () {
-    //   this.isAccPopOpen = false;
-    //   document.querySelector('body').classList.remove('dimmed')
-    // }
+    }
   }
 }
 </script>
@@ -122,13 +105,21 @@ export default {
             font-size: $font-s;
             color: $col-key;
           }
-          button {
+          > span {
             display: block;
             margin: 10px auto 0;
+            font-size: $font-xxs;
+            line-height: 1.4;
+            text-align: center;
+          }
+          button {
+            display: block;
+            margin: 0 auto;
             border: none;
             background-color: transparent;
             font-family: 'Noto-Serif';
             font-size: $font-xxs;
+            line-height: 1.4;
             text-decoration: underline;
             color: $col-key;
           }

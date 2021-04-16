@@ -1,34 +1,33 @@
 <template>
-  <div class="greetings">
-
+  <div class="greetings" ref="greeting">
     <ContentsTitle
       title="초대합니다."
+      :description="message"
     />
-
-    <p class="message text-int" v-html="messageBreak(message)" />
-
-    <div class="info text-int">
-      <p class="info-date" v-html="dday(year, month, date, day, hour)" />
-      <div class="info-place">
-        <p>{{ city }}</p>
-        <p>{{ weddingHall }}</p>
-        <p>{{ hall }}</p>
+    <div
+      class="info"
+    >
+      <p class="info-date text-int" v-html="dday(year, month, date, day, hour)" />
+      <div class="info-place text-int">
+        <p class="tt">{{ city }}</p>
+        <p class="tt">{{ weddingHall }}</p>
+        <p class="tt">{{ hall }}</p>
       </div>
     </div>
 
     <div class="parents">
-      <p>
-        <strong class="parents-name">{{ groomFather }}</strong>
-        <strong class="parents-name">{{ groomMother }}</strong>
-        <em>의 장남</em>
-        <strong>{{ groom }}</strong>
+      <p class="text-int">
+        <strong class="parents-name tt">{{ groomFather }}</strong>
+        <strong class="parents-name tt">{{ groomMother }}</strong>
+        <em class="tt">의 장남</em>
+        <strong class="tt">{{ groom }}</strong>
       </p>
 
-      <p>
-        <strong class="parents-name">{{ bridalFather }}</strong>
-        <strong class="parents-name">{{ bridalMother }}</strong>
-        <em>의 장녀</em>
-        <strong>{{ bridal }}</strong>
+      <p class="text-int">
+        <strong class="parents-name tt">{{ bridalFather }}</strong>
+        <strong class="parents-name tt">{{ bridalMother }}</strong>
+        <em class="tt">의 장녀</em>
+        <strong class="tt">{{ bridal }}</strong>
       </p>
     </div>
 
@@ -95,21 +94,44 @@ export default {
       ]
     }
   },
-  mounted () {
-    setTimeout( () => {
-      [...document.querySelectorAll('.text-int')].forEach(item => {
-        item.classList.add('hello')
-      })
-    }, 100)
-  },
+  // mounted () {
+  //   window.addEventListener('scroll', this.scrollEvt)
+  // },
+  // unmounted() {
+  //   window.removeEventListener('scroll', this.scrollEvt)
+  // },
   methods: {
+    // scrollEvt (e) {
+    //   let targetTop = this.$refs.greeting.getBoundingClientRect().y
+    //   let sectionEnd = targetTop + this.$refs.greeting.offsetHeight
+
+    //   // Array.prototype.slice.call(document.querySelectorAll('.text-int')).forEach( item => {
+    //   //   console.log(item, item.getBoundingClientRect().y)
+    //   // })
+
+    //   // if(window.innerHeight * 0.6 > targetTop) this.isTitleHello = true
+    //   // if(window.innerHeight * 0.2 > targetTop) this.isDescHello = true
+    //   if (sectionEnd <= 0) window.removeEventListener('scroll', this.scrollEvt)
+    //   // console.log(targetTop, window.innerHeight * 0.6, sectionEnd)
+    // },
+    // scrollEvt (e) {
+    //   let targetTop = this.$refs.greeting.getBoundingClientRect().y
+    //   let sectionEnd = targetTop + this.$refs.greeting.offsetHeight
+
+    //   if(window.innerHeight * 0.6 > targetTop) this.isTitleHello = true
+    //   if(window.innerHeight * 0.2 > targetTop) this.isDescHello = true
+    //   if (sectionEnd <= 0) window.removeEventListener('scroll', this.scrollEvt)
+    //   console.log(targetTop, window.innerHeight * 0.6, sectionEnd)
+    // },
     dday (year, month, date, day, hour) {
       if (hour > 12) hour = `오후 ${hour - 12}`
-      return `${year}년 ${month}월 ${date}일 (${day}) <br /> ${hour}시`
+      return `<span class="tt">${year}년 ${month}월 ${date}일 (${day})</span> <span class="tt"> ${hour}시</span>`
     },
-    messageBreak (msg) {
-      return msg.split('\n').join('<br />')
-    }
+    // messageBreak (msg) {
+      // return msg.split('\n').join('<br />')
+      // let aaa = 
+      // return msg.split('\n').join('<br />')
+    // }
   }
 }
 </script>
@@ -117,10 +139,11 @@ export default {
   .greetings {
     position: relative;
     color: $col-key;
+    padding-top: #{$top-gap-2x}px;
   }
 
   .message {
-    display: flex;
+    display: block;
     position: relative;
     z-index: $z-bg;
     margin: 0 0 0 $left-gap;
@@ -180,9 +203,5 @@ export default {
         margin-top: 40px;
       }
     }
-  }
-
-  .contents-title {
-    margin-top: #{$top-gap}px;
   }
 </style>

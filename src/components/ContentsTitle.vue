@@ -1,14 +1,16 @@
 <template>
   <div
+    ref="contentsTtile"
     class="contents-title"
     :class="{'is-right' : isRight}"
   >
-    <h2>
-      <strong>{{ title }}</strong>
+    <h2 class="text-int">
+      <strong class="tt">{{ title }}</strong>
     </h2>
     <p
+      class="text-int"
       v-if="description"
-      v-html="descriptionBreak(description)" />
+      v-html="description" />
   </div>
 </template>
 <script>
@@ -23,9 +25,10 @@ export default {
     }
   },
   methods: {
-    descriptionBreak (desc) {
-      return desc.split('\n').join('<br />')
-    }
+    // descriptionBreak (desc) {
+    //   let aaa = desc.split('\n').join('</span>')
+    //   return aaa
+    // }
   }
 }
 </script>

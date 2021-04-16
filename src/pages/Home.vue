@@ -19,7 +19,7 @@
     :date="5"
     :day="'토'"
     :hour="14"
-    :message="'서로에게 가장 좋은 친구인 두 사람이\n 이제 서로 하나가 되어\n소중한 날들을 함께 걸어가려고 합니다.\n그 약속의 자리에 귀한 걸음 하시어\n따뜻한 마음을 담아 축하해주시면\n더 없는 기쁨으로 간직하겠습니다.'"
+    :message="message"
   />
   <Photos
     :photo-list="ourPhoto"
@@ -59,6 +59,10 @@ import Maps from '@/components/Maps.vue'
 import PopupPhoto from '@/components/PopupPhoto.vue'
 import PopupAccount from '@/components/PopupAccount.vue'
 
+
+import { gsap, ScrollTrigger } from 'gsap/all'
+gsap.registerPlugin( ScrollTrigger);
+
 export default {
   name: 'App',
   components: {
@@ -90,6 +94,7 @@ export default {
       city: '부산',
       weddingHall: '더리안웨딩홀',
       hall: '크리스탈홀',
+      message: '<span class="tt">서로에게 가장 좋은 친구인 두 사람이</span> <span class="tt">이제 서로 하나가 되어</span> <span class="tt">소중한 날들을 함께 걸어가려고 합니다.</span> <span class="tt">그 약속의 자리에 귀한 걸음 하시어</span> <span class="tt">따뜻한 마음을 담아 축하해주시면</span> <span class="tt">더 없는 기쁨으로 간직하겠습니다.</span>',
       connect: [
         {
           name: '황검명',
@@ -157,26 +162,31 @@ export default {
     }
   },
   mounted () {
-    // let arr = [...document.querySelectorAll('.text-int')].map((itm) => {
-    //   return itm.offsetTop
-    // })
-
-    // console.log(arr)
-
-    // window.addEventListener('scroll', () => {
-    //   let scrollLocation = document.documentElement.scrollTop
-    //   let windowHeight = window.innerHeight
-    //   if (scrollLocation < arr) {
-    //     arr.classList.add('aaa')
-    //   }
-    //   console.log(scrollLocation, arr, scrollLocation < arr)
-
-
-    // })
-
-
+    this.gsaps()
   },
   methods: {
+    gsaps () {
+      const sections = ['.hello-kv', '.greetings', '.photos', '.maps', '.connect', '.account', '.visitor', '.goodbye']
+      sections.reduce((acc, cur) => {
+        const texts = `${cur} .text-int`
+        ScrollTrigger.create({
+          trigger: cur,
+          start: "top-=90% center",
+          onEnter: () => {
+            gsap.utils.toArray(texts).forEach( text => {
+              ScrollTrigger.create({
+                trigger: text,
+                start: "top 60%",
+                onEnter: () => {
+                  text.classList.add('hello')
+                }
+              });
+            })
+          }
+        })
+      })
+
+    },
     callModalOpen (idx) {
       this.isModalViewed = true
       this.myIndex = idx

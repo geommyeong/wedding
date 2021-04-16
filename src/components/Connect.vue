@@ -6,20 +6,21 @@
 
     <ContentsTitle
       title="연락하기"
-      :description="'전화나 문자\n모두 가능합니다.'"
+      description="<span class='tt'>전화나 문자</span><span class='tt'>모두 가능합니다.</span>"
     />
     <div class="connect-person">
       <ul>
         <li
+          class="text-int"
           v-for="(item, index) in connect"
           :key="index"
         >
-          <p>
+          <p class="tt">
             <em>{{ str(index) }}</em>
             <strong>{{ item.name }}</strong>
           </p>
-          <a :href="`tel:${item.phone}`">전화 하기</a>
-          <a :href="`sms:${item.phone}`">문자 하기</a>
+          <a :href="`tel:${item.phone}`" class="tt">전화 하기</a>
+          <a :href="`sms:${item.phone}`" class="tt">문자 하기</a>
         </li>
       </ul>
     </div>
@@ -32,13 +33,15 @@
         {'is-open' : parentsPop}
       ]"
     >
-      <button
-        class="btn-parents"
-        type=" button"
-        @click="toggleParents()"
-      >
-        혼주에게 연락하기
-      </button>
+      <div class="text-int">
+        <button
+          class="btn-parents tt"
+          type=" button"
+          @click="toggleParents()"
+        >
+          혼주에게 연락하기
+        </button>
+      </div>
       <div
         v-if="parentsPop"
         class="connect-parents"

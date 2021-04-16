@@ -1,10 +1,13 @@
 <template>
-  <div class="hello">
+  <div class="hello-kv">
     <div class="frames">
       <figure>
         <img :src="require(`@/assets/images/${keyVisual}.jpg`)" alt="key visual">
       </figure>
-      <div class="greetings-name text-int">
+      <div
+        class="greetings-name text-int"
+        ref="greetingName"
+      >
         <strong class="tt">{{ groom }}</strong>
         <span class="tt">그리고</span>
         <strong class="tt">{{ bridal }}</strong>
@@ -60,13 +63,19 @@ export default {
         }
       ]
     }
-  }
+  },
+  mounted () {
+    setTimeout( () => {
+      this.$refs.greetingName.classList.add('hello')
+    }, 100)
+  },
 }
 </script>
 <style lang="scss" scoped>
-.hello {
+.hello-kv {
   position: relative;
   color: $col-key;
+  margin-bottom: #{$top-gap-2x}px;
 }
 
 .frames {

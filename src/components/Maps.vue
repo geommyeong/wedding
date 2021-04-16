@@ -2,12 +2,15 @@
   <div class="maps">
     <ContentsTitle
       title="오시는 길"
-      :description="'부산광역시 연제구 명륜로 3 \n 한양프라자'"
+      description="<span class='tt'>부산광역시 연제구 명륜로 3</span> <span class='tt'>한양프라자</span>"
       :is-right="true"
     />
-    <div id="map"></div>
-    <ul class="way">
+    <div class="map-wrap text-int">
+      <div id="map" class="tt short"></div>
+    </div>
+    <ul class="way text-int">
       <li
+        class="tt short"
         v-for="(item, index) in transfortation"
         :key="index"
       >
@@ -188,6 +191,10 @@ export default {
   position: relative;
   margin-top: #{$top-gap-2x}px;
   color: $col-key;
+}
+.map-wrap {
+  position: relative;
+  z-index: $z-bg;
 }
 #map {
   left: #{-$side-padding};

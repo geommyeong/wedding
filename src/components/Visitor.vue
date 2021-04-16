@@ -2,7 +2,7 @@
   <div class="visitor">
     <ContentsTitle
       title="축하 메세지"
-      :description="'축하 메시지로 \n 마음을 전해주세요.'"
+      description="<span class='tt'>축하 메시지로</span> <span class='tt'>마음을 전해주세요.</span>"
     />
     <div class="log-in">
 
@@ -82,6 +82,8 @@
             </div>
           </div>
 
+
+          <!-- <h4>텍스트 필드</h4> -->
           <div
             :class="[
               'fm-field',
@@ -111,27 +113,6 @@
               <p>최대 200자 까지 입력 가능합니다.</p>
             </div>
           </div>
-
-          
-
-          <!-- <h4>텍스트 필드</h4> -->
-          <label for="mytextarea">텍스트 필드</label>
-          <textarea
-            v-model="mytextarea"
-            name="mytextarea"
-            id="mytextarea"
-            placeholder="메세지를 써 주세요"
-            maxlength="100"
-            cols="30"
-            rows="10"
-          />
-          <p
-            :class="[
-              'fld-notice',
-              {'checked' : mytextarea.length >= 1 }
-            ]"
-          >{{ mytextarea.length }} / 200</p>
-          <p>최대 200자 까지 입력 가능합니다.</p>
 
 
           <button
@@ -475,6 +456,8 @@ export default {
     }
   }
 
+
+  // filed
   .fm-field {
     position: relative;
     width: 80%;
@@ -522,6 +505,8 @@ export default {
       border-bottom: 1px solid #ccc;
       transition: .4s cubic-bezier(.25,.8,.25,1);
       transition-property: font-size,padding-top,color;
+      font-size: $font-input;
+      font-family: 'Noto-Serif';
       &:focus {
         outline: none;
       }
@@ -532,11 +517,22 @@ export default {
   }
   .fld-notice-wrap {
     margin-top: 10px;
-    font-size: 10px;
+    font-size: $font-xxs;
     line-height: 1.5;
     .fld-notice {
+      display: inline-block;
+      position: relative;
       &.checked {
         color: #448aff;
+        &:before {
+          content:'';
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 10px;
+          height: 1px;
+          background-color: #448aff;
+        }
       }
     }
   }
