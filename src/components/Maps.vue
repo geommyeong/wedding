@@ -194,6 +194,7 @@ export default {
 }
 .map-wrap {
   position: relative;
+  margin: 0 -#{$side-padding};
   z-index: $z-bg;
 }
 #map {

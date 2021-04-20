@@ -151,31 +151,29 @@
       </div>
 
       <div class="msg-list">
-        <ul class="data-list">
+        <ul class="data-list text-int">
           <li
-            class="text-int"
+            class="tt"
             v-for="(item) in reply"
             :key="item.name"
           >
-            <div class="tt">
-              <div class="ms">
-                <div class="ms-name">{{ item.name }}</div>
-                <p class="ms-date">{{ item.date }}</p>
-              </div>
-              <p class="ms-contents">{{ item.contents }}</p>
+            <div class="ms">
+              <div class="ms-name">{{ item.name }}</div>
+              <p class="ms-date">{{ item.date }}</p>
+            </div>
+            <p class="ms-contents">{{ item.contents }}</p>
 
-              <button
-                type="button"
-                class="btn-auth-check"
-                @click="authCheck(item)"
-              >
-                삭제 또는 수정 할까요
-              </button>
-              <div class="del-popup" :class="{'open' : item.isPopOpen }">
-                <p>비밀번호를 입력하세요</p>
-                <input v-model="erpassword" type="password">
-                <button type="button" @click="deleteUser(item.name, item.password, erpassword)">삭제하기</button>
-              </div>
+            <button
+              type="button"
+              class="btn-auth-check"
+              @click="authCheck(item)"
+            >
+              삭제 또는 수정 할까요
+            </button>
+            <div class="del-popup" :class="{'open' : item.isPopOpen }">
+              <p>비밀번호를 입력하세요</p>
+              <input v-model="erpassword" type="password">
+              <button type="button" @click="deleteUser(item.name, item.password, erpassword)">삭제하기</button>
             </div>
           </li>
         </ul>
@@ -347,7 +345,7 @@ export default {
           })
           .then(() => {
             this.resetTextfield()
-            this.callToastPopup('등록되었습니다!')
+            this.callToastPopup('등록되었습니다! 😘')
             console.log('document written with name')
           })
           .catch((err) => {
@@ -361,7 +359,7 @@ export default {
         .onSnapshot( res => {
           this.reply = []
           res.forEach( (doc) => {
-            const datedata = new Date(doc.data().date.seconds * 1000)
+            const datedata = new Date(doc.data().date.seconds * 1000).toLocaleString()
 
             this.reply.push({
               name: doc.data().name,
@@ -399,36 +397,39 @@ export default {
       //   })
     },
 
-    // 메시지 수정
-    updateText () {
-
-    },
 
     // 메세지 삭제
     deleteUser(name, dbPassword, inputPassword) {
       // if (item.password)
-      console.log(dbPassword, inputPassword)
       if (dbPassword === inputPassword) {
         db.collection('visitors')
         .doc(name)
         .delete()
         .then(() => {
           this.erpassword = ''
-          this.callToastPopup('지워짐')
-          console.log('지워짐')
+          this.callToastPopup('댓글이 삭제되었습니다! 😱')
+          this.reply.forEach( item => {
+            item.isPopOpen = false
+          })
         })
         .catch((err) => {
           console.err(err)
         })
       } else {
-        this.callToastPopup('안지워짐 - 비밀번호가 틀렸음')
+        this.callToastPopup('비밀번호가 다릅니다! 😵')
         console.log('access denied')
         this.erpassword = ''
+        this.reply.forEach( item => {
+          item.isPopOpen = false
+        })
       }
     },
 
     // 메세지 삭제 팝업 띄우기
     authCheck (itm) {
+      this.reply.forEach( item => {
+        item.isPopOpen = false
+      })
       itm.isPopOpen = !itm.isPopOpen
     },
     callToastPopup (msg) {
@@ -439,14 +440,6 @@ export default {
         this.isToastUp = false
       },1000)
     }
-    // read() {
-      // firebase.firestore().collection('visitors').get()
-      //   .then((querySnapshot) => {
-      //     querySnapshot.forEach( doc => {
-      //       console.log(`${doc.id} => ${doc}`)
-      //     })
-      //   })
-    // }
   },
   mounted() {
     // console.log(firebase)
@@ -493,17 +486,44 @@ export default {
     &.open {
       display: block;
     }
+    p {
+      margin-top: 20px;
+      color: $col-key;
+    }
+    input {
+      display: inline-block;
+      width: 36%;
+      margin-top: 10px;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      border-bottom: 1px solid $col-key;
+      font-size: $font-input;
+      color: $col-key;
+      -webkit-appearance: none;
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      display: inline-block;
+      color: $col-key;
+    }
   }
 
   .toast-pop {
     position: fixed;
-    bottom: -50px;
-    left: calc(50% - 70px);
+    bottom: -60px;
+    left: calc(50% - 90px);
     width: 140px;
     height: 20px;
     padding: 20px;
-    background-color: #ccc;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
     transition: all .3s ease-in-out;
+    text-align: center;
+    line-height: 1.5;
     &.up {
       transform: translate(0, -200%);
     }
@@ -638,7 +658,7 @@ export default {
       .data-list {
         width: 100%;
         > li {
-          $top-gap : 10px;
+          $top-gap : 30px;
           position: relative;
           padding-top: $top-gap;
           & + li {
@@ -654,13 +674,14 @@ export default {
             }
             &-date {
               margin-left: 10px;
-              font-size: $font-xxs;
+              font-size: 10px;
               color: #ccc;
             }
             &-contents {
               margin-top: 10px;
-              font-size: $font-xs;
+              font-size: $font-xxs;
               color: $col-key;
+              line-height: 1.4;
             }
           }
           .btn-auth-check {

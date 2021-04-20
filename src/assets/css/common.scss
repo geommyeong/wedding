@@ -104,7 +104,7 @@ textarea {
 			opacity: 1;
 			transform: translate(0,0) rotate(.001deg);
 			transition: transform 1s cubic-bezier(.15,.85,.45,1),opacity 1s cubic-bezier(.32,.94,.6,1);
-			@for $i from 1 through 10 {
+			@for $i from 1 through 30 {
 				&:nth-child(#{$i}) {
 					transition-delay: #{$i * 0.25s};
 				}

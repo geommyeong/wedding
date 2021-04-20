@@ -1,8 +1,8 @@
 <template>
   <Hello
     :key-visual="keyVisual"
-    :groom="groom"
-    :bridal="bridal"
+    :groom="groomFull"
+    :bridal="bridalFull"
   />
   <Greetings
     :groom-father="groomFather"
@@ -29,7 +29,7 @@
   />
   <Connect
     :connect="connect"
-    :is-parents="true"
+    :is-parents="false"
     :connect-parents="connectParents"
   />
   <Account
@@ -93,12 +93,14 @@ export default {
       parentsAccountNum: null,
 
       keyVisual: 'img-wed-17',
-      groomFather: '황두영',
-      groomMother: '윤현',
-      bridalFather: '강용강',
-      bridalMother: '이미숙',
-      groom: '황검명',
-      bridal: '한나영',
+      groomFather: '두영',
+      groomMother: '현',
+      bridalFather: '용강',
+      bridalMother: '미숙',
+      groom: '검명',
+      bridal: '나영',
+      groomFull: '황검명',
+      bridalFull: '한나영',
       city: '부산',
       weddingHall: '더리안웨딩홀',
       hall: '크리스탈홀',
