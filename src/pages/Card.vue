@@ -34,6 +34,7 @@
   />
   <Account
     :accounts="accounts"
+    :is-parents-ver="true"
     @open-popup="callAccountPopOpen"
   />
   <PopupPhoto
@@ -47,9 +48,12 @@
     :who="who"
     :account-bank="accountBank"
     :account-num="accountNumber"
-    :parentsAccountHolder="parentsAccountHolder"
+    :parents-account-holder="parentsAccountHolder"
     :parents-bank="parentsBank"
     :parents-account-num="parentsAccountNum"
+    :parents-account-holder-sec="parentsAccountHolderSec"
+    :parents-bank-sec="parentsBankSec"
+    :parents-account-num-sec="parentsAccountNumSec"
     @close-account-pop="callAccountPopClose()"
   />
 </template>
@@ -91,6 +95,9 @@ export default {
       parentsAccountHolder: '',
       parentsBank: null,
       parentsAccountNum: null,
+      parentsAccountHolderSec: null,
+      parentsBankSec: null,
+      parentsAccountNumSec: null,
 
       keyVisual: 'img-wed-17',
       groomFather: '황두영',
@@ -166,9 +173,13 @@ export default {
           accountNum: '101010-690630',
 
           // 혼주 계좌
-          parentsAccountHolder: '이미숙',
+          parentsAccountHolder: '강용강 (부)',
           parentsBank: '농협(NH)',
-          parentsAccountNum: '123-123-123'
+          parentsAccountNum: '815084-56-281088',
+
+          parentsAccountHolderSec: '이미숙 (모)',
+          parentsBankSec: '농협(NH)',
+          parentsAccountNumSec: '356-1191-2223-83'
         }
       ]
     }
@@ -232,6 +243,9 @@ export default {
       this.parentsAccountHolder = itm.parentsAccountHolder
       this.parentsBank = itm.parentsBank
       this.parentsAccountNum = itm.parentsAccountNum
+      this.parentsAccountHolderSec = itm.parentsAccountHolderSec
+      this.parentsBankSec = itm.parentsBankSec
+      this.parentsAccountNumSec = itm.parentsAccountNumSec
       this.who = (idx === 0 ? `신랑 (${this.groom})` : `신부 (${this.bridal})`)
       document.querySelector('body').classList.add('dimmed')
     },

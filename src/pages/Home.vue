@@ -47,9 +47,6 @@
     :who="who"
     :account-bank="accountBank"
     :account-num="accountNumber"
-    :parentsAccountHolder="parentsAccountHolder"
-    :parents-bank="parentsBank"
-    :parents-account-num="parentsAccountNum"
     @close-account-pop="callAccountPopClose()"
   />
 </template>
@@ -88,9 +85,6 @@ export default {
       who: '',
       accountBank: '',
       accountNumber: '',
-      parentsAccountHolder: '',
-      parentsBank: null,
-      parentsAccountNum: null,
 
       keyVisual: 'img-wed-17',
       groomFather: '두영',
@@ -166,11 +160,6 @@ export default {
           kakaoPay: '281006011000060860445104',
           bank: '수협',
           accountNum: '101010-690630',
-
-          // 혼주 계좌
-          parentsAccountHolder: '이미숙',
-          parentsBank: '농협(NH)',
-          parentsAccountNum: '123-123-123'
         }
       ]
     }
@@ -231,10 +220,7 @@ export default {
       this.isAccPopOpen = true
       this.accountBank = itm.bank
       this.accountNumber = itm.accountNum
-      this.parentsAccountHolder = itm.parentsAccountHolder
-      this.parentsBank = itm.parentsBank
-      this.parentsAccountNum = itm.parentsAccountNum
-      this.who = (idx === 0 ? `신랑 (${this.groom})` : `신부 (${this.bridal})`)
+      this.who = (idx === 0 ? `신랑 (${this.groomFull})` : `신부 (${this.bridalFull})`)
       document.querySelector('body').classList.add('dimmed')
     },
     callAccountPopClose () {

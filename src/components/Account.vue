@@ -25,7 +25,7 @@
             class="tt"
             @click="$emit('open-popup', item, index)"
           >
-            {{ str(index) }}계좌번호 보기
+            {{ str(index) }}{{ isParentsVer ? '측' : '' }} 계좌번호 보기
           </button>
         </li>
       </ul>
@@ -46,7 +46,11 @@ export default {
     Fraction
   },
   props: {
-    accounts: Array
+    accounts: Array,
+    isParentsVer: {
+      type: Boolean,
+      default: false
+    }
   },
   data: () => {
     return {

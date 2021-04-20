@@ -139,7 +139,7 @@ export default {
   .greetings {
     position: relative;
     color: $col-key;
-    // padding-top: 260px;
+    padding-top: 20px;
   }
 
   .message {

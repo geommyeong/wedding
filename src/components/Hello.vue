@@ -74,7 +74,7 @@ export default {
 <style lang="scss" scoped>
 .hello-kv {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   // margin-bottom: #{$top-gap}px;
   color: $col-key;
 }

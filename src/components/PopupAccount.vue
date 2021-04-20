@@ -32,6 +32,21 @@
           복사하기
         </button>
       </div>
+      <div
+        class="parens-account"
+        v-if="parentsAccountHolderSec"
+      >
+        <h3>{{ parentsAccountHolderSec }}</h3>
+        <p class="bank">{{ parentsBankSec }}</p>
+        <p class="acc-num">{{ parentsAccountNumSec }}</p>
+        <button
+          type="button"
+          class="btn-copy"
+          @click="copyAccount(parentsAccountNumSec)"
+        >
+          복사하기
+        </button>
+      </div>
       <button
         type="button"
         class="btn-close-pop"
@@ -52,7 +67,11 @@ export default {
     accountNum: String,
     parentsAccountHolder: String,
     parentsBank: String,
-    parentsAccountNum: String
+    parentsAccountNum: String,
+
+    parentsAccountHolderSec: String,
+    parentsBankSec: String,
+    parentsAccountNumSec: String,
   },
   methods: {
     copyAccount (num) {
@@ -63,6 +82,7 @@ export default {
       tempElem.select()
       document.execCommand('copy')
       document.body.removeChild(tempElem)
+      window.alert('복사 되었습니다. 😁')
     }
   }
 }

@@ -23,7 +23,7 @@ html, body {
   line-height: 1.2;
 	font-size: 0.266666666666667vw;
 	background: $bg-color;
-	@media screen and (min-width: 767px){
+	@media screen and (min-width: 700px){
 		font-size: 1px;
 	}
 }
@@ -51,7 +51,7 @@ textarea {
 #app {
   background: $bg-color;
 	overflow: hidden;
-	max-width: 700px;
+	max-width: 600px;
 	margin: 0 auto;
 	padding: 0 #{$side-padding};
 	font-size: 10rem;
