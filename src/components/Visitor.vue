@@ -524,6 +524,7 @@ export default {
     transition: all .3s ease-in-out;
     text-align: center;
     line-height: 1.5;
+    z-index: 9999;
     &.up {
       transform: translate(0, -200%);
     }
