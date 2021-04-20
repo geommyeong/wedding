@@ -215,13 +215,12 @@ export default {
     },
     scrollEvt (e) {
       let targetTop = document.querySelector('.photos').getBoundingClientRect().y - (window.innerHeight * 0.5)
-      if (targetTop < 0) {
-        document.querySelector('#app').classList.add('col')
-        if (targetTop < -document.querySelector('.photos').offsetHeight*1.5) {
-          document.querySelector('#app').classList.remove('col')
-        }
+      if (targetTop < -document.querySelector('.photos').offsetHeight*2) {
+        document.querySelector('body').classList.remove('col')
+      } else if (targetTop < 0) {
+        document.querySelector('body').classList.add('col')
       } else {
-        document.querySelector('#app').classList.remove('col')
+        document.querySelector('body').classList.remove('col')
       }
     },
     callModalOpen (idx) {

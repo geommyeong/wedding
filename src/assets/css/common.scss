@@ -23,6 +23,11 @@ html, body {
   line-height: 1.2;
 	font-size: 0.266666666666667vw;
 	background: $bg-color;
+	transition: background-color .7s ease-in;
+	&.col {
+		background: #ecf1e8;
+		transition: background-color .7s ease-in;
+	}
 	@media screen and (min-width: 700px){
 		font-size: 1px;
 	}
@@ -49,17 +54,11 @@ textarea {
 
 
 #app {
-  background: $bg-color;
 	overflow: hidden;
 	max-width: 600px;
 	margin: 0 auto;
 	padding: 0 #{$side-padding};
 	font-size: 10rem;
-	transition: background-color .7s ease-in;
-	&.col {
-		background: #ecf1e8;
-		transition: background-color .7s ease-in;
-	}
 }
 
 .scroll-lock {
