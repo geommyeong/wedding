@@ -16,7 +16,8 @@
             target="_blank"
             class="tt"
           >
-            <em :class="index !== 1 ? 'col-gr' : 'col-br'">{{ str(index) }}</em>에게 송금하기
+            <span class="send"><em :class="index !== 1 ? 'col-gr' : 'col-br'">{{ str(index) }}</em>에게 송금하기</span>
+            (<span class="kakaopay">KakaoPay</span>)
           </a>
           <span class="tt">혹은, </span>
           <button
@@ -102,8 +103,20 @@ export default {
           a {
             display: block;
             text-align: center;
-            font-size: $font-s;
+            font-size: $font-xs;
             color: $col-key;
+            text-decoration: none;
+            .send {
+              text-decoration: underline;
+            }
+            .kakaopay {
+              display: inline-block;
+              vertical-align: top;
+              width: 50px;
+              height: 40px;
+              background: url('~@/assets/images/icon-kakaopay.png') no-repeat 0 5px / contain;
+              text-indent: -9999px;
+            }
           }
           > span {
             display: block;
@@ -114,7 +127,7 @@ export default {
           }
           button {
             display: block;
-            margin: 0 auto;
+            margin: 5px auto 0;
             border: none;
             background-color: transparent;
             font-family: 'Noto-Serif';

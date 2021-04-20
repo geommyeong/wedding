@@ -4,20 +4,20 @@
       title="축하 메세지"
       description="<span class='tt'>축하 메시지로</span> <span class='tt'>마음을 전해주세요.</span>"
     />
-    <div class="log-in">
+    <div class="visitor-inner">
 
-      <div>
+      <div class="forms">
         <form
           @submit.prevent="onSubmit(name, mypassword, mytextarea)"
           method="post"
         >
-          <!-- <h4>이름</h4> -->
-              <!-- name.length > 0 ? 'fm-filled' : '', -->
+          <!-- 이름 -->
           <div
             :class="[
               'fm-field',
               {'fm-filled' : nameFilled},
-              {'fm-focused' : nameFocused}
+              {'fm-focused' : nameFocused},
+              {'fm-error': nameError}
             ]"
           >
             <label for="name">이름</label>
@@ -28,10 +28,10 @@
               name="name"
               @focus="nameFocused = true"
               @blur="nameFocused = false"
+              :minlength="2"
               :maxlength="5"
               required
             />
-              <!-- @blur="name.length > 0 ? nameFocused = true : nameFocused = false" -->
             <button
               type="button"
               class="btn-submit btn-dup-check"
@@ -46,17 +46,19 @@
                   {'checked' : name.length >= 2}
                 ]"
               >{{ name.length }} / 5</p>
-              <p>한글과 숫자만 입력 가능합니다.</p>
-              <p>이름을 입력해주세요 (한글 2 ~ 4 자리만 가능합니다.)</p>
+              <p
+                :class="['fld-notice', {'checked' : name.length >= 1}]"
+              >한글과 숫자만 입력 가능합니다.</p>
             </div>
           </div>
 
-          <!-- <h4>비밀번호</h4> -->
+          <!-- 비밀번호 -->
           <div
             :class="[
               'fm-field',
               {'fm-filled' : pswdFilled},
-              {'fm-focused' : pswdFocused}
+              {'fm-focused' : pswdFocused},
+              {'fm-error': pswdError}
             ]"
           >
             <label for="mypassword">비밀번호</label>
@@ -67,7 +69,8 @@
               name="mypassword"
               @focus="pswdFocused = true"
               @blur="pswdFocused = false"
-              maxlength="4"
+              :minlength="4"
+              :maxlength="4"
               required
             />
             <div class="fld-notice-wrap">
@@ -77,8 +80,22 @@
                   {'checked' : mypassword.length === 4 }
                 ]"
               >{{ mypassword.length }} / 4</p>
-              <p>비밀번호를 입력해주세요 (숫자 4자리)</p>
-              <p>숫자만 입력 가능합니다.</p>
+              <p
+                :class="[
+                  'fld-notice',
+                  {'checked' : mypassword.length === 4 }
+                ]"
+              >
+                비밀번호를 입력해주세요 (숫자 4자리)
+              </p>
+              <p
+                :class="[
+                  'fld-notice',
+                  {'checked' : mypassword.length >= 1 }
+                ]"
+              >
+                숫자만 입력 가능합니다.
+              </p>
             </div>
           </div>
 
@@ -91,12 +108,13 @@
               {'fm-focused' : txfdFocused}
             ]"
           >
-            <label for="mytextarea">텍스트 필드</label>
+            <label for="mytextarea">축하 메시지</label>
             <textarea
               v-model="mytextarea"
               name="mytextarea"
               id="mytextarea"
-              maxlength="100"
+              :minlength="1"
+              :maxlength="200"
               cols="30"
               rows="10"
               @focus="txfdFocused = true"
@@ -110,7 +128,14 @@
                   {'checked' : mytextarea.length >= 1 }
                 ]"
               >{{ mytextarea.length }} / 200</p>
-              <p>최대 200자 까지 입력 가능합니다.</p>
+              <p
+                :class="[
+                  'fld-notice',
+                  {'checked' : mytextarea.length >= 1 }
+                ]"
+              >
+                최대 200자 까지 입력 가능합니다.
+              </p>
             </div>
           </div>
 
@@ -120,51 +145,48 @@
             class="btn-submit"
           >
             <!-- @click="submit(name, mypassword, mytextarea)" -->
-            등록하기
+            축하 메시지 남기기
           </button>
         </form>
       </div>
 
       <div class="msg-list">
-        <!-- <button type="button" @click="read()">데이터 읽기</button> -->
-        <p class="readData">축하 메시지</p>
         <ul class="data-list">
           <li
+            class="text-int"
             v-for="(item) in reply"
             :key="item.name"
           >
-            <div>{{item.name ? item.name : 'hello'}}</div>
-            <div class="name">이름: {{ item.name }}</div>
-            <p class="ms-contents">내용: {{ item.contents }}</p>
-            <p class="ms-date">작성 시간: {{ item.date }}</p>
+            <div class="tt">
+              <div class="ms">
+                <div class="ms-name">{{ item.name }}</div>
+                <p class="ms-date">{{ item.date }}</p>
+              </div>
+              <p class="ms-contents">{{ item.contents }}</p>
 
-            <button type="button" @click="authCheck(item)"> 삭제 또는 수정 할까요</button>
-            <div class="del-popup" :class="{'open' : item.isPopOpen }">
-              <p>비밀번호를 입력하세요</p>
-              <input v-model="erpassword" type="password">
-              <button type="button" @click="updateText()">수정하기</button>
-              <button type="button" @click="deleteUser(item.name, item.password, erpassword)">삭제하기</button>
+              <button
+                type="button"
+                class="btn-auth-check"
+                @click="authCheck(item)"
+              >
+                삭제 또는 수정 할까요
+              </button>
+              <div class="del-popup" :class="{'open' : item.isPopOpen }">
+                <p>비밀번호를 입력하세요</p>
+                <input v-model="erpassword" type="password">
+                <button type="button" @click="deleteUser(item.name, item.password, erpassword)">삭제하기</button>
+              </div>
             </div>
           </li>
         </ul>
       </div>
     </div>
 
-    <p class="info">
-      이름 / validation 필요
-      비밀번호 / validation 필요 숫자만 가능
-      텍스트 에어리어 + 등록 버튼
-
-
-      댓글 리스트 -> 작성 시간 , 삭제 버튼
-
-      -> 삭제버튼 클릭시 비밀번호 input 생성
-      비밀번호 input === 비밀번호 비교
-      ? 삭제 되었습니다.
-      : 비밀번호가 다릅니다.
-    </p>
-
-    <div class="toast-pop" :class="{'up' : isToastUp }">{{ popupMsg }}</div>
+    <div class="toast-pop"
+      :class="{'up' : isToastUp }"
+    >
+      {{ popupMsg }}
+    </div>
     <!-- <div id="disqus_thread"></div> -->
 
   </div>
@@ -185,12 +207,18 @@ export default {
       name: '',
       isNameExist: 'tr',
       checkDupName: false,
+
       nameFilled: false,
       nameFocused: false,
+      nameError: false,
+
       pswdFilled: false,
       pswdFocused: false,
+      pswdError: false,
+
       txfdFilled: false,
       txfdFocused: false,
+
       mypassword: '',
       mytextarea: '',
       erpassword: '',
@@ -201,18 +229,48 @@ export default {
     }
   },
   watch: {
+
+    // 유효성검사 이름
     name () {
-      this.name.length >= 2
-        ? this.nameFilled = true
-        : this.nameFilled = false
+      let isNameFilled = this.name.length > 0
+      let isNamePass = this.name.length >= 2
+
+      if ( isNameFilled ) {
+        this.nameFilled = true
+        if ( isNamePass ) {
+          this.nameError = false
+        } else {
+          this.nameError = true
+        }
+      } else {
+        this.nameFilled = false
+      }
+
       return this.name = this.name.replace(/[^가-힣ㄱ-ㅎ0-9]/g, '')
     },
+
+    // 유효성검사 패스워드
     mypassword () {
-      this.mypassword.length === 4 ? this.pswdFilled = true : this.pswdFilled = false
+      let isPasswordFilled = this.mypassword.length > 0
+      let isPasswordPass = this.mypassword.length === 4
+
+      if ( isPasswordFilled ) {
+        this.pswdFilled = true
+        if ( isPasswordPass ) {
+          this.pswdError = false
+        } else {
+          this.pswdError = true
+        }
+      } else {
+        this.pswdFilled = false
+      }
+
       return this.mypassword = this.mypassword.replace(/[^0-9]/g, '')
     },
-    mytextfiled () {
-      this.txfd.length >= 1
+
+    // 유효성 검사 컨텐츠
+    mytextarea () {
+      this.mytextarea.length >= 1
         ? this.txfdFilled = true
         : this.txfdFilled = false
     }
@@ -221,19 +279,8 @@ export default {
     swalError(msg) {
       console.error('서버 에러입니다.', msg)
     },
-    // SignUp() {
-    //   console.log('sign up')
-    //   console.log('email:', this.email)
-    //   console.log('password:', this.password)
-    //   // firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-    //   //   .then((user) => {
-    //   //     console.log(user)
-    //   //   })
-    //   //   .catch((error) => {
-    //   //     console.error(error)
-    //   //   })
-    // },
 
+    // 텍스트 필드 리셋
     resetTextfield () {
       this.name = ''
       this.mypassword = ''
@@ -428,6 +475,12 @@ export default {
 <style lang="scss" scoped>
   .visitor {
     margin-top: #{$top-gap-2x}px;
+    .visitor-inner {
+      margin-left: $left-gap;
+      .forms {
+
+      }
+    }
   }
   .data-list {
     padding-top: 50px;
@@ -462,16 +515,27 @@ export default {
     position: relative;
     width: 80%;
     max-width: 380px;
-    padding: 30px 0;
+    padding: 30px 0 0;
+    &.fm-error {
+      label {
+        color: $col-err;
+      }
+      .fld-notice:not(.checked) {
+        color: $col-err;
+      }
+    }
     &.fm-focused {
       label {
         top: 18px;
-        color: #448aff;
+        color: $col-key;
         opacity: 1;
         font-size: 12px;
       }
       input {
-        border-color: #448aff;
+        border-color: $col-key;
+      }
+      .fld-notice:not(.checked) {
+        color: inherit;
       }
     }
     &.fm-filled {
@@ -485,7 +549,7 @@ export default {
       position: absolute;
       top: 38px;
       left: 0;
-      font-size: 16px;
+      font-size: 14px;
       color: #ccc;
       opacity: 0;
       opacity: 1;
@@ -501,44 +565,67 @@ export default {
       width: 100%;
       height: 32px;
       border: none;
+      border-radius: 0;
       background: transparent;
       border-bottom: 1px solid #ccc;
       transition: .4s cubic-bezier(.25,.8,.25,1);
       transition-property: font-size,padding-top,color;
       font-size: $font-input;
+      color: $col-key;
       font-family: 'Noto-Serif';
+      -webkit-appearance: none;
       &:focus {
         outline: none;
       }
     }
     textarea {
       height: 64px;
+      margin-top: 10px;
     }
   }
   .fld-notice-wrap {
     margin-top: 10px;
-    font-size: $font-xxs;
+    font-size: 14px;
     line-height: 1.5;
     .fld-notice {
-      display: inline-block;
+      display: block;
       position: relative;
+      width: calc(100%  - 24px);
+      font-size: 11px;
       &.checked {
-        color: #448aff;
+        color: $col-key;
         &:before {
           content:'';
           position: absolute;
-          top: 0;
-          right: 0;
-          width: 10px;
-          height: 1px;
-          background-color: #448aff;
+          top: 6px;
+          right: -18px;
+          width: 6px;
+          height: 2px;
+          background-color: $col-key;
+          transform: rotate(45deg);
+        }
+        &:after {
+          content:'';
+          position: absolute;
+          top: 5px;
+          right: -26px;
+          width: 11px;
+          height: 2px;
+          background-color: $col-key;
+          transform: rotate(-46deg);
         }
       }
     }
   }
   .btn-submit {
+    display: block;
+    margin: 30px 0 0 0;
     padding: 10px;
-    border: 1px solid #448aff;
+    font-size: $font-s;
+    color: $col-key;
+    text-decoration: underline;
+
+    // border: 1px solid $col-key;
   }
   .btn-dup-check {
     display: none;
@@ -547,10 +634,56 @@ export default {
   // 메시지 리스트
   .msg {
     &-list {
+      margin-right: $left-gap;
       .data-list {
         width: 100%;
         > li {
-
+          $top-gap : 10px;
+          position: relative;
+          padding-top: $top-gap;
+          & + li {
+            margin-top: 20px;
+            border-top: 1px solid $col-key;
+          }
+          .ms {
+            display: flex;
+            align-items: flex-end;
+            &-name {
+              font-size: $font-xs;
+              color: $col-key;
+            }
+            &-date {
+              margin-left: 10px;
+              font-size: $font-xxs;
+              color: #ccc;
+            }
+            &-contents {
+              margin-top: 10px;
+              font-size: $font-xs;
+              color: $col-key;
+            }
+          }
+          .btn-auth-check {
+            position: absolute;
+            top: $top-gap;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            text-indent: -9999px;
+            &:before, &:after {
+              content: '';
+              position: absolute;
+              top: 10px;
+              left: 5px;
+              width: 10px;
+              height: 1px;
+              background-color: $col-key;
+              transform: rotate(-45deg);
+            }
+            &:after {
+              transform: rotate(45deg);
+            }
+          }
         }
       }
     }

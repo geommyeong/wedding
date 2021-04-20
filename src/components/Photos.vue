@@ -77,27 +77,7 @@ export default {
       ]
     }
   },
-  mounted () {
-    window.addEventListener('scroll', this.scrollEvt)
-  },
-  unmounted() {
-    window.removeEventListener('scroll', this.scrollEvt)
-  },
   methods: {
-    scrollEvt (e) {
-      let sectionEnd = this.$refs.photo.getBoundingClientRect().y + this.$refs.photo.offsetHeight
-      if (sectionEnd <= 0) {
-        this.isSectionPassed = true
-        window.removeEventListener('scroll', this.scrollEvt);
-      }
-      // console.log( sectionEnd , 'photo', this.isSectionPassed)
-    },
-    onSwiper(swiper) {
-      console.log(swiper);
-    },
-    onSlideChange() {
-      console.log('slide change');
-    }
   }
 }
 </script>
@@ -116,6 +96,7 @@ export default {
     margin: 30px -15px 0;
     padding-top: 40px;
     padding-left: 40px;
+    padding-right: 30px;
 
     .photo-frame {
       width: 85%;

@@ -47,6 +47,9 @@
     :who="who"
     :account-bank="accountBank"
     :account-num="accountNumber"
+    :parentsAccountHolder="parentsAccountHolder"
+    :parents-bank="parentsBank"
+    :parents-account-num="parentsAccountNum"
     @close-account-pop="callAccountPopClose()"
   />
 </template>
@@ -85,8 +88,11 @@ export default {
       who: '',
       accountBank: '',
       accountNumber: '',
+      parentsAccountHolder: '',
+      parentsBank: null,
+      parentsAccountNum: null,
 
-      keyVisual: 'img-wed-16',
+      keyVisual: 'img-wed-17',
       groomFather: '황두영',
       groomMother: '윤현',
       bridalFather: '강용강',
@@ -146,8 +152,7 @@ export default {
         {img: 'img-wed-14'},
         {img: 'img-wed-15'},
         {img: 'img-wed-16'},
-        {img: 'img-wed-17'},
-        {img: 'img-wed-18'}
+        {img: 'img-wed-17'}
       ],
       accounts: [
         {
@@ -158,7 +163,12 @@ export default {
         {
           kakaoPay: '281006011000060860445104',
           bank: '수협',
-          accountNum: '101010-690630'
+          accountNum: '101010-690630',
+
+          // 혼주 계좌
+          parentsAccountHolder: '이미숙',
+          parentsBank: '농협(NH)',
+          parentsAccountNum: '123-123-123'
         }
       ]
     }
@@ -193,9 +203,12 @@ export default {
       })
     },
     scrollEvt (e) {
-      let targetTop = document.querySelector('.connect').getBoundingClientRect().y - (window.innerHeight * 0.5)
+      let targetTop = document.querySelector('.photos').getBoundingClientRect().y - (window.innerHeight * 0.5)
       if (targetTop < 0) {
         document.querySelector('#app').classList.add('col')
+        if (targetTop < -document.querySelector('.photos').offsetHeight*1.5) {
+          document.querySelector('#app').classList.remove('col')
+        }
       } else {
         document.querySelector('#app').classList.remove('col')
       }
@@ -209,17 +222,22 @@ export default {
     },
     callModalClose () {
       this.isModalViewed = false
+      console.log(this.$refs.photoSwiper)
       document.querySelector('body').classList.remove('scroll-lock')
     },
     callAccountPopOpen (itm, idx) {
       this.isAccPopOpen = true
       this.accountBank = itm.bank
       this.accountNumber = itm.accountNum
+      this.parentsAccountHolder = itm.parentsAccountHolder
+      this.parentsBank = itm.parentsBank
+      this.parentsAccountNum = itm.parentsAccountNum
       this.who = (idx === 0 ? `신랑 (${this.groom})` : `신부 (${this.bridal})`)
       document.querySelector('body').classList.add('dimmed')
     },
     callAccountPopClose () {
       this.isAccPopOpen = false;
+      this.parentsAccountHolder = null,
       document.querySelector('body').classList.remove('dimmed')
     }
   }

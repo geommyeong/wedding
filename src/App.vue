@@ -1,6 +1,6 @@
 <template>
     <router-view />
-    <Visitor style="display: none;" />
+    <Visitor />
     <GoodBye />
 </template>
 

@@ -67,7 +67,7 @@ export default {
   mounted () {
     setTimeout( () => {
       this.$refs.greetingName.classList.add('hello')
-    }, 100)
+    }, 500)
   },
 }
 </script>

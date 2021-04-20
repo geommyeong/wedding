@@ -12,6 +12,7 @@
         :slides-per-view="1"
         :space-between="20"
         :initial-slide="activeIndex"
+        :pagination="{el: '.inner-swiper-pagination', type: 'fraction'}"
       >
         <swiper-slide
           class="photo-frame"
@@ -23,6 +24,7 @@
               :src="require(`@/assets/images/${item.img}.jpg`)" alt=""
             >
         </swiper-slide>
+        <div class="inner-swiper-pagination paginations" />
       </swiper>
     </div>
   </div>
