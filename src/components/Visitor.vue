@@ -145,7 +145,7 @@
             class="btn-submit"
           >
             <!-- @click="submit(name, mypassword, mytextarea)" -->
-            축하 메시지 남기기
+            축하 메시지 쓰기
           </button>
         </form>
       </div>
@@ -438,7 +438,7 @@ export default {
       setTimeout(() => {
         this.popupMsg = ''
         this.isToastUp = false
-      },1000)
+      },2000)
     }
   },
   mounted() {
@@ -514,8 +514,8 @@ export default {
   .toast-pop {
     position: fixed;
     bottom: -60px;
-    left: calc(50% - 90px);
-    width: 140px;
+    left: calc(50% - 120px);
+    width: 200px;
     height: 20px;
     padding: 20px;
     border-radius: 10px;
@@ -523,6 +523,7 @@ export default {
     color: #fff;
     transition: all .3s ease-in-out;
     text-align: center;
+    font-size: $font-xxs;
     line-height: 1.5;
     z-index: 9999;
     &.up {
@@ -639,12 +640,16 @@ export default {
     }
   }
   .btn-submit {
+    // width: 80px;
+    // height: 80px;
     display: block;
     margin: 30px 0 0 0;
-    padding: 10px;
-    font-size: $font-s;
-    color: $col-key;
-    text-decoration: underline;
+    // border-radius: 50%;
+    padding: 10px 20px;
+    font-size: $font-xxs;
+    background-color: $col-key;
+    color: #fff;
+    // text-decoration: underline;
 
     // border: 1px solid $col-key;
   }

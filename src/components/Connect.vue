@@ -33,32 +33,58 @@
         {'is-open' : parentsPop}
       ]"
     >
-      <div class="text-int">
-        <button
-          class="btn-parents tt"
-          type=" button"
-          @click="toggleParents()"
-        >
-          혼주에게 연락하기
-        </button>
-      </div>
       <div
         v-if="parentsPop"
         class="connect-parents"
       >
         <ul>
-          <li v-for="(item,index) in connectParents" :key=item+index>
-            <em>{{ str(index) }}측</em>
-            <div class="parts">
-              <strong>{{ str(index) }} 아버지 ({{ item.father.name }})</strong>
-              <a :href="`tel:${item.father.phone}`">전화 하기</a>
-              <a :href="`sms:${item.father.phone}`">문자 하기</a>
-            </div>
-            <div class="parts">
-              <strong>{{ str(index) }} 어머니 ({{ item.mother.name }})</strong>
-              <a :href="`tel:${item.mother.phone}`">전화 하기</a>
-              <a :href="`sms:${item.mother.phone}`">문자 하기</a>
-            </div>
+          <li
+            v-for="(item,index) in connectParents"
+            :key=item+index
+            class="sides"
+          >
+            <em>{{ str(index) }} 측</em>
+            <ul>
+              <li
+                v-for="(parentsItem,parentsIndex) in item.parents"
+                :key=parentsIndex
+                class="parts text-int"
+              >
+                <strong class="tt">
+                  <em>{{ str(index) }} {{ parentsIndex === 0 ? '아버지' : '어머니' }}</em>
+                  <span>({{ parentsItem.name }})</span>
+                </strong>
+                <div class="bank-info tt">
+                  <p
+                    class="bank"
+                    :class="parentsItem.bankLogo"
+                  >
+                    <em>{{ parentsItem.bank }}</em>
+                    <span>Logo</span>
+                  </p>
+                  <p class="acc-num">{{ parentsItem.accNumber }}</p>
+                </div>
+                <button
+                  type="button"
+                  class="btn-copy btn-arrow tt"
+                  @click="copyAccount(parentsItem.accNumber)"
+                >
+                  계좌번호 복사하기
+                </button>
+                <a
+                  :href="`tel:${parentsItem.phone}`"
+                  class="tt"
+                >
+                  <span class="btn-arrow">전화 하기</span>
+                  </a>
+                <a
+                  :href="`sms:${parentsItem.phone}`"
+                  class="tt"
+                >
+                  <span class="btn-arrow">문자 하기</span>
+                  </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -78,6 +104,10 @@ export default {
   props: {
     connect: Array,
     connectParents: Array,
+    parentsPop: {
+      type: Boolean,
+      default: false
+    },
     isParents: {
       type: Boolean,
       default: false
@@ -85,7 +115,6 @@ export default {
   },
   data: () => {
     return {
-      parentsPop: false,
       fractions: [
         {
           shape: 'circle-small',
@@ -122,8 +151,15 @@ export default {
         return '신부'
       }
     },
-    toggleParents () {
-      this.parentsPop = !this.parentsPop
+    copyAccount (num) {
+      let tempElem = document.createElement('textarea');
+
+      tempElem.value = num
+      document.body.appendChild(tempElem)
+      tempElem.select()
+      document.execCommand('copy')
+      document.body.removeChild(tempElem)
+      window.alert('계좌번호가 복사 되었습니다. 😁')
     }
   }
 }
@@ -188,38 +224,96 @@ export default {
       }
     }
     .connect-parents {
-      margin-top: 50px;
+      margin: 100px 0 0 #{$left-gap};
       ul {
-        li {
+        .sides {
+          width: 80%;
           margin-top: 50px;
-          text-align: center;
           font-size: $font-s;
           > em {
             display: block;
             margin-bottom: 20px;
-            text-align: center;
           }
           .parts {
             margin-top: 30px;
             & + .parts {
-              margin-top: 25px;
+              margin-top: 60px;
             }
             > strong {
               display: block;
-              margin-bottom: 20px;
+              margin-bottom: 10px;
               font-size: $font-xs;
+              > em {
+                display: inline-block;
+              }
+              > span {
+                display: inline-block;
+                margin-left: 5px;
+                font-size: $font-xxs;
+              }
             }
             a {
               display: inline-block;
               width: 52%;
-              margin: 10px auto 0;
+              margin: 12px auto 0;
               color: $col-key;
               font-size: $font-xxs;
               text-decoration: underline;
             }
+            .bank-info {
+              margin: 20px auto 0;
+              font-size: $font-xxs;
+              .bank {
+                display: inline-flex;
+                align-items: center;
+                span {
+                  display: inline-block;
+                  width: 45px;
+                  height: 22px;
+                  margin-left: 5px;
+                  position: relative;
+                  text-indent: -9999px;
+                  &:before {
+                    content: '';
+                    position: absolute;
+                    top: -2px;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: contain
+                  }
+                }
+                &.nh {
+                  span:before {
+                    background-image: url('~@/assets/images/icon_bank-nh.png');
+                  }
+                }
+                &.sc {
+                  span:before {
+                    background-image: url('~@/assets/images/icon_bank-sc.png');
+                  }
+                }
+              }
+              .acc-num {
+                margin-left: 10px;
+                display: inline-block;
+              }
+            }
+            .btn-copy {
+              position: relative;
+              display: block;
+              margin: 10px 0 0 0;
+              padding: 0;
+              color: $col-key;
+              text-decoration: underline;
+            }
           }
-          & + li {
-            margin-top: 100px;
+          & + .sides {
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 1px solid $col-key;
           }
         }
       }

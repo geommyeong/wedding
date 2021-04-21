@@ -5,7 +5,10 @@
     />
       <!-- description="<span class='tt inline'>카카오페이</span><span class='tt inline'>는 언제나 열려 있습니다.</span><span class='tt'>아, 물론 계좌번호도 있습니다.</span>" -->
 
-    <div class="account-person">
+    <div
+      v-if="accounts"
+      class="account-person"
+    >
       <ul>
         <li
           class="text-int"
@@ -19,7 +22,11 @@
             <span class="send"><em :class="index !== 1 ? 'col-gr' : 'col-br'">{{ str(index) }}</em>에게 송금하기</span>
             (<span class="kakaopay">KakaoPay</span>)
           </a>
-          <span class="tt">혹은, </span>
+          <span
+            class="tt"
+          >
+            혹은,
+          </span>
           <button
             type="button"
             class="tt"
@@ -30,6 +37,32 @@
         </li>
       </ul>
     </div>
+
+    <!-- <div
+      v-if="parentAccount"
+      class="account-parents"
+    >
+      <p class="title">혼주 계좌번호</p>
+      <ul>
+        <li
+          v-for="(parentItem, parentIndex) in parentAccount"
+          :key="parentIndex"
+        >
+          <h2>{{ str(parentIndex) }} 측</h2>
+          <ul>
+            <li
+              v-for="(itm, idx) in parentItem.holder"
+              :key="idx"
+              class="parts"
+            >
+              <h3>{{ itm.accountHolder }}</h3>
+              <p class="bank">{{ itm.bank }}</p>
+              <p class="acc-num">{{ itm.accNumber }}</p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div> -->
 
     <Fraction
       :fractions="fractions"
@@ -146,6 +179,48 @@ export default {
         }
       }
     }
+    // &-parents {
+    //   margin: 100px 0 0 $left-gap;
+    //   .title {
+    //     font-size: $font-s;
+    //   }
+    //   ul {
+    //     width: 80%;
+    //     > li {
+    //       margin-top: 50px;
+    //       font-size: $font-s;
+    //       > ul {
+    //         .parts {
+    //           margin-top: 30px;
+    //           & + .parts {
+    //             margin-top: 25px;
+    //           }
+    //           h3 {
+
+    //           }
+    //           .bank {
+    //             display: inline-block;
+    //             font-size: $font-xxs;
+    //           }
+    //           .acc-num {
+    //             display: inline-block;
+    //             font-size: $font-xxs;
+    //           }
+    //         }
+    //       }
+    //       & + li {
+    //         margin-top: 50px;
+    //         padding-top: 50px;
+    //         border-top: 1px solid $col-key;
+    //       }
+    //       h2 {
+    //         display: block;
+    //         margin-bottom: 20px;
+    //         font-size: $font-xs;
+    //       }
+    //     }
+    //   }
+    // }
     .fraction {
       z-index: -1;
     }

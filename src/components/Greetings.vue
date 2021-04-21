@@ -175,12 +175,12 @@ export default {
         font-size: $font-xs;
         & + .parents-name {
           position: relative;
-          margin-left: 30rem;
+          margin-left: 20px;
           &::before {
             content: '';
             position: absolute;
-            top: 10rem;
-            left: -16rem;
+            top: 8px;
+            left: -12px;
             width: 4px;
             height: 4px;
             border-radius: 50%;

@@ -30,6 +30,13 @@
 import ContentsTitle from '@/components/ContentsTitle.vue'
 import Fraction from '@/components/Fraction.vue'
 export default {
+  name: 'Maps',
+  props: {
+    mapDraggable: {
+      type: Boolean,
+      default: true
+    }
+  },
   components: {
     ContentsTitle,
     Fraction
@@ -102,13 +109,15 @@ export default {
       script.src = `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${this.appKey}`
       document.head.appendChild(script)
     }
+
   },
   methods: {
     initMap() {
       const container = document.querySelector('#map')
       const options = {
         center: new kakao.maps.LatLng(35.19656853772262, 129.0807270648317),
-        level: 3
+        level: 3,
+        draggable: this.mapDraggable
       }
       const map = new kakao.maps.Map(container, options)
       this.map = map

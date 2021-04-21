@@ -112,6 +112,24 @@ textarea {
 	}
 }
 
+.btn-arrow {
+	position: relative;
+	&:before, &:after {
+		content: '';
+		position: absolute;
+		top: 9px;
+		right: -12px;
+		width: 5px;
+		height: 1px;
+		background-color: $col-key;
+		transform: rotate(-30deg);
+	}
+	&:after {
+		top: 6px;
+		transform: rotate(30deg);
+	}
+}
+
 // .col-gr {
 // 	color: $col-gr;
 // }

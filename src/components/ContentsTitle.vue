@@ -63,7 +63,7 @@ export default {
     p {
       margin-top: 20px;
       font-size: $font-xs;
-      line-height: 1.4;
+      line-height: 1.6;
     }
   }
 </style>

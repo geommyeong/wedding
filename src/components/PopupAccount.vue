@@ -4,7 +4,13 @@
       <div class="gb-account">
         <p class="title">계좌번호</p>
         <h3>{{ who }}</h3>
-        <p class="bank">{{ accountBank }}</p>
+        <p
+          class="bank"
+          :class="accountBankLogo"
+        >
+          <em>{{ accountBank }}</em>
+          <span></span>
+        </p>
         <p class="acc-num">{{ accountNum }}</p>
         <button
           type="button"
@@ -15,38 +21,6 @@
         </button>
       </div>
 
-        <!-- v-if="parents" -->
-      <div
-        class="parens-account"
-        v-if="parentsAccountHolder"
-      >
-        <p class="title">혼주 계좌번호</p>
-        <h3>{{ parentsAccountHolder }}</h3>
-        <p class="bank">{{ parentsBank }}</p>
-        <p class="acc-num">{{ parentsAccountNum }}</p>
-        <button
-          type="button"
-          class="btn-copy"
-          @click="copyAccount(parentsAccountNum)"
-        >
-          복사하기
-        </button>
-      </div>
-      <div
-        class="parens-account"
-        v-if="parentsAccountHolderSec"
-      >
-        <h3>{{ parentsAccountHolderSec }}</h3>
-        <p class="bank">{{ parentsBankSec }}</p>
-        <p class="acc-num">{{ parentsAccountNumSec }}</p>
-        <button
-          type="button"
-          class="btn-copy"
-          @click="copyAccount(parentsAccountNumSec)"
-        >
-          복사하기
-        </button>
-      </div>
       <button
         type="button"
         class="btn-close-pop"
@@ -64,14 +38,8 @@ export default {
   props: {
     who: String,
     accountBank: String,
+    accountBankLogo: String,
     accountNum: String,
-    parentsAccountHolder: String,
-    parentsBank: String,
-    parentsAccountNum: String,
-
-    parentsAccountHolderSec: String,
-    parentsBankSec: String,
-    parentsAccountNumSec: String,
   },
   methods: {
     copyAccount (num) {
@@ -95,7 +63,7 @@ export default {
     left: 50%;
     width: 60%;
     max-width: 380px;
-    min-height: 200px;
+    height: auto;
     padding: $side-padding * 2;
     border-radius: 8px;
     z-index: 9999;
@@ -117,7 +85,41 @@ export default {
       margin-top: 20px;
     }
     .bank {
+      display: flex;
+      align-items: center;
       margin-top: 10px;
+      em {
+
+      }
+      span {
+        display: inline-block;
+        width: 45px;
+        height: 22px;
+        margin-left: 5px;
+        position: relative;
+        text-indent: -9999px;
+        &:before {
+          content: '';
+          position: absolute;
+          top: -1px;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain
+        }
+      }
+      &.ibk {
+        span:before {
+          background-image: url('~@/assets/images/icon-bank_ibk.png');
+        }
+      }
+      &.sh {
+        span:before {
+          background-image: url('~@/assets/images/icon_bank-sh.png');
+        }
+      }
     }
     .acc-num {
       display: inline-block;
