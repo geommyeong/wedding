@@ -147,7 +147,7 @@ export default {
               phone: '010-5162-7424',
               bank: '농협',
               bankLogo: 'nh',
-              accNumber: '356-1191-2223-83'
+              accNumber: '815-0845-62810-88'
             },
             {
               name: '이미숙',

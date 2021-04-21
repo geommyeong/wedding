@@ -50,6 +50,7 @@
     :account-bank-logo="accountBankLogo"
     @close-account-pop="callAccountPopClose()"
   />
+  <Visitor />
 </template>
 <script>
 import Hello from '@/components/Hello.vue'
@@ -58,6 +59,7 @@ import Connect from '@/components/Connect.vue'
 import Account from '@/components/Account.vue'
 import Photos from '@/components/Photos.vue'
 import Maps from '@/components/Maps.vue'
+import Visitor from '@/components/Visitor.vue'
 import PopupPhoto from '@/components/PopupPhoto.vue'
 import PopupAccount from '@/components/PopupAccount.vue'
 
@@ -74,6 +76,7 @@ export default {
     Photos,
     Maps,
     Account,
+    Visitor,
     PopupPhoto,
     PopupAccount
   },
