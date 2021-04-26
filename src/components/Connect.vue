@@ -306,6 +306,7 @@ export default {
               display: block;
               margin: 10px 0 0 0;
               padding: 0;
+              font-size: $font-xxs;
               color: $col-key;
               text-decoration: underline;
             }
