@@ -269,7 +269,7 @@ export default {
                 span {
                   display: inline-block;
                   width: 45px;
-                  height: 22px;
+                  height: auto;
                   margin-left: 5px;
                   position: relative;
                   text-indent: -9999px;
@@ -293,6 +293,11 @@ export default {
                 &.sc {
                   span:before {
                     background-image: url('~@/assets/images/icon_bank-sc.png');
+                  }
+                }
+                &.keb {
+                  span:before {
+                    background-image: url('~@/assets/images/icon_bank-keb.png');
                   }
                 }
               }

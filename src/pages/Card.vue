@@ -134,9 +134,9 @@ export default {
             {
               name: '윤현',
               phone: '010-0520-2360',
-              bank: '농협',
-              bankLogo: 'nh',
-              accNumber: '301-0009-2567-11'
+              bank: 'KEB 하나',
+              bankLogo: 'keb',
+              accNumber: '325-910307-00707'
             }
           ]
         },
@@ -144,14 +144,14 @@ export default {
           parents: [
             {
               name: '강용강',
-              phone: '010-5162-7424',
+              phone: '010-3331-4692',
               bank: '농협',
               bankLogo: 'nh',
               accNumber: '815-0845-62810-88'
             },
             {
               name: '이미숙',
-              phone: '010-0520-2360',
+              phone: '010-7355-2180',
               bank: '농협',
               bankLogo: 'nh',
               accNumber: '356-1191-2223-83'
