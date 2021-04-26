@@ -139,7 +139,7 @@ export default {
         li {
           a {
             display: block;
-            text-align: center;
+            margin: 0 0 0 #{$left-gap};
             font-size: $font-xs;
             color: $col-key;
             text-decoration: none;
@@ -157,14 +157,14 @@ export default {
           }
           > span {
             display: block;
-            margin: 10px auto 0;
+            margin: 10px auto 0 #{$left-gap};
             font-size: $font-xxs;
             line-height: 1.4;
-            text-align: center;
           }
           button {
             display: block;
-            margin: 5px auto 0;
+            padding: 0;
+            margin: 5px auto 0 #{$left-gap};
             border: none;
             background-color: transparent;
             font-family: 'Noto-Serif';

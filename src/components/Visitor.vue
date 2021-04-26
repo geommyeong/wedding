@@ -171,7 +171,7 @@
               삭제 또는 수정 할까요
             </button>
             <div class="del-popup" :class="{'open' : item.isPopOpen }">
-              <p>비밀번호를 입력하세요</p>
+              <p>삭제 하시겠어요? <br />비밀번호를 입력하세요</p>
               <input v-model="erpassword" type="password">
               <button type="button" @click="deleteUser(item.name, item.password, erpassword)">삭제하기</button>
             </div>
@@ -182,9 +182,8 @@
 
     <div class="toast-pop"
       :class="{'up' : isToastUp }"
-    >
-      {{ popupMsg }}
-    </div>
+      v-html="popupMsg"
+    />
     <!-- <div id="disqus_thread"></div> -->
 
   </div>
@@ -193,6 +192,7 @@
 import ContentsTitle from '@/components/ContentsTitle.vue'
 import firebase from 'firebase'
 import { db } from '@/main.js'
+import bcrypt from 'bcryptjs'
 
 export default {
   components: {
@@ -285,64 +285,31 @@ export default {
       this.mytextarea = ''
     },
 
-    alwaysTrue () {
-      // return true
-      this.isNameExist
-        ? this.checkDupName = false
-        : this.checkDupName = true
-
-      console.log('isNameExist', this.isNameExist)
-      console.log('checkDupName', this.checkDupName)
-
-      // console.lo
+    encryptor (password) {
+      const salt = bcrypt.genSaltSync(1)
+      return bcrypt.hashSync(password, salt)
     },
 
-    async checkDuplicateName (n) {
-      // let isNameExist = false
-      db.collection('visitors').get().then(res => {
-        let arr = []
-        res.forEach( doc => {
-          arr.push(doc.data().name)
-        })
-        if (arr.indexOf(n) !== -1) {
-          this.isNameExis = 'fa'
-          console.log('A', this.isNameExist)
-        } else {
-          console.log('B', this.isNameExist)
-        }
-        // this.isNameExist = true
-      })
-
-      console.log('isNameExist', this.isNameExist)
+    passwordCheck (plainPswd, hashPswd) {
+      return bcrypt.compareSync(plainPswd, hashPswd)
     },
 
-    onSubmit(name, paswrd, contns) {
-      // console.log(name, paswrd, contns)
+    async onSubmit(name, paswrd, contns) {
 
-      // console.log(this.checkDuplicateName(name) , this.checkDuplicateName(name) ? `${name} 사용할 수 없습니다!` : `${name} 으로 사용 가능합니다!`)
-      // console.log('bb', this.alwaysTrue())
+      const visitorRef = db.collection('visitors').doc(name)
+      const visitorData = {
+        name: name,
+        pasword: this.encryptor(paswrd),
+        contents: contns,
+        date: firebase.firestore.FieldValue.serverTimestamp()
+      }
+      const myDocument = await visitorRef.get()
 
-      // let isNameExist = false
-      
-
-      // console.log(isNameExist)
-
-
-      if (name === '') {
-        alert('이름을 입력하세요')
-      } else if (paswrd === '') {
-        alert('비밀번호를 입력하세요')
-      } else if (contns === '') {
-        alert('내용을 입력하세요')
+      if (myDocument && myDocument.exists) {
+        this.callToastPopup('이름이 중복되네요 <br /> 다른 이름으로 등록해주세요 😹')
       } else {
-        db.collection('visitors')
-          .doc(name)
-          .set({
-            name: name,
-            pasword: paswrd,
-            contents: contns,
-            date: firebase.firestore.FieldValue.serverTimestamp()
-          })
+        await visitorRef
+          .set(visitorData, {merge: true})
           .then(() => {
             this.resetTextfield()
             this.callToastPopup('등록되었습니다! 😘')
@@ -353,8 +320,10 @@ export default {
           })
       }
     },
+
+    // 데이터 읽기
     async read() {
-      db.collection('visitors')
+      await db.collection('visitors')
         .orderBy('date', 'desc')
         .onSnapshot( res => {
           this.reply = []
@@ -372,36 +341,14 @@ export default {
         }, err => {
           this.swalError(err)
         })
-
-      // db.collection('visitors').get()
-      //   .then((res) => {
-      //     // console.log(res.data)
-      //     this.reply = []
-
-      //     res.forEach( doc => {
-      //       let stringdate = bewdoc.data().date.seconds * 1000
-      //       stringdate = new Date(doc.data().date.seconds * 1000)
-      //       this.reply.push({
-      //         key: doc.id,
-      //         name: doc.data().name,
-      //         contents: doc.data().contents,
-      //         date: stringdate,
-      //         password: doc.data().pasword,
-      //         isPopOpen: false
-      //       })
-      //       // console.log(doc.id, '=>', doc.data(), doc.data().pasword)
-      //     })
-      //   })
-      //   .catch((err) => {
-      //     this.swalError(err)
-      //   })
     },
 
 
     // 메세지 삭제
     deleteUser(name, dbPassword, inputPassword) {
-      // if (item.password)
-      if (dbPassword === inputPassword) {
+      const isChecked = this.passwordCheck(inputPassword, dbPassword)
+
+      if (isChecked) {
         db.collection('visitors')
         .doc(name)
         .delete()
@@ -416,7 +363,7 @@ export default {
           console.err(err)
         })
       } else {
-        this.callToastPopup('비밀번호가 다릅니다! 😵')
+        this.callToastPopup('비밀번호가 틀립니다! 😵')
         console.log('access denied')
         this.erpassword = ''
         this.reply.forEach( item => {
@@ -435,14 +382,13 @@ export default {
     callToastPopup (msg) {
       this.popupMsg = msg
       this.isToastUp = true
+
       setTimeout(() => {
-        this.popupMsg = ''
         this.isToastUp = false
+        this.popupMsg = ''
       },2000)
+
     }
-  },
-  mounted() {
-    // console.log(firebase)
   },
   created() {
     this.read()
@@ -516,7 +462,8 @@ export default {
     bottom: -60px;
     left: calc(50% - 120px);
     width: 200px;
-    height: 20px;
+    min-height: 20px;
+    height: auto;
     padding: 20px;
     border-radius: 10px;
     background-color: #333;
@@ -527,7 +474,7 @@ export default {
     line-height: 1.5;
     z-index: 9999;
     &.up {
-      transform: translate(0, -200%);
+      transform: translate(0, -100px);
     }
   }
 

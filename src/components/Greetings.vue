@@ -193,8 +193,9 @@ export default {
         margin-left: 5px;
         font-size: $font-xxs;
         & + strong {
-          display: block;
-          margin-top: 10px;
+          display: inline-block;
+          margin: 10px 0 0 20px;
+          // margin-top: 10px;
           font-size: $font-xs;
           font-weight: bold;
         }

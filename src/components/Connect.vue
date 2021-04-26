@@ -176,7 +176,7 @@ export default {
     margin-top: #{$top-gap-h}px;
     ul {
       li {
-        text-align: center;
+        margin-left: $left-gap;
         font-size: $font-xs;
         strong {
           margin-left: 10px;
