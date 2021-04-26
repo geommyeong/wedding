@@ -203,7 +203,6 @@ export default {
       email: '',
       password: '',
       name: '',
-      isNameExist: 'tr',
       checkDupName: false,
 
       nameFilled: false,

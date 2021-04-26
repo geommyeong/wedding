@@ -133,7 +133,7 @@ export default {
             },
             {
               name: '윤현',
-              phone: '010-0520-2360',
+              phone: '010-5020-2360',
               bank: 'KEB 하나',
               bankLogo: 'keb',
               accNumber: '325-910307-00707'
