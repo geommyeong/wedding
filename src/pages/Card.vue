@@ -33,10 +33,6 @@
     :is-parents="true"
     :connect-parents="connectParents"
   />
-  <!-- <Account
-    :is-parents-ver="true"
-    @open-popup="callAccountPopOpen"
-  /> -->
   <PopupPhoto
     v-if="isModalViewed"
     :photo-list="ourPhoto"
@@ -61,7 +57,6 @@
 import Hello from '@/components/Hello.vue'
 import Greetings from '@/components/Greetings.vue'
 import Connect from '@/components/Connect.vue'
-// import Account from '@/components/Account.vue'
 import Photos from '@/components/Photos.vue'
 import Maps from '@/components/Maps.vue'
 import PopupPhoto from '@/components/PopupPhoto.vue'
