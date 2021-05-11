@@ -5,8 +5,14 @@
       description="<span class='tt'>부산광역시 연제구 명륜로 3</span> <span class='tt'>한양프라자</span>"
       :is-right="true"
     />
-    <div class="map-wrap text-int">
-      <div id="map" class="tt short"></div>
+    <div
+      class="map-wrap text-int"
+      :class="{mapFixed : !mapDraggable}"
+    >
+      <div
+        id="map"
+        class="tt short"
+      ></div>
     </div>
     <ul class="way text-int">
       <li
@@ -205,6 +211,21 @@ export default {
   position: relative;
   margin: 0 -#{$side-padding};
   z-index: $z-bg;
+  &.mapFixed {
+    position: relative;
+    &:before {
+      content:'';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    svg {
+      display: none;
+    }
+  }
 }
 #map {
   left: #{-$side-padding};
