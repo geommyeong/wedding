@@ -37,33 +37,6 @@
         </li>
       </ul>
     </div>
-
-    <!-- <div
-      v-if="parentAccount"
-      class="account-parents"
-    >
-      <p class="title">혼주 계좌번호</p>
-      <ul>
-        <li
-          v-for="(parentItem, parentIndex) in parentAccount"
-          :key="parentIndex"
-        >
-          <h2>{{ str(parentIndex) }} 측</h2>
-          <ul>
-            <li
-              v-for="(itm, idx) in parentItem.holder"
-              :key="idx"
-              class="parts"
-            >
-              <h3>{{ itm.accountHolder }}</h3>
-              <p class="bank">{{ itm.bank }}</p>
-              <p class="acc-num">{{ itm.accNumber }}</p>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div> -->
-
     <Fraction
       :fractions="fractions"
     />

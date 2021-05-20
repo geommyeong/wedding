@@ -157,13 +157,13 @@ export default {
       ],
       accounts: [
         {
-          kakaoPay: '281006011000003822061763',
+          kakaoPay: '281006011000060860445104',
           bank: '기업은행',
           logo: 'ibk',
           accountNum: '092-085908-01-015'
         },
         {
-          kakaoPay: '281006011000060860445104',
+          kakaoPay: '281006011000003822061763',
           bank: '수협',
           logo: 'sh',
           accountNum: '101010-690630',

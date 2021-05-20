@@ -94,18 +94,6 @@ export default {
       ]
     }
   },
-  // setup() {
-  //   onMounted(() => {
-  //     if (window.kakao && window.kakao.maps) {
-  //       this.initMap()
-  //     } else {
-  //       const script = document.createElement('script')
-  //       script.onload = () => kakao.maps.load(this.initMap);
-  //       script.src = `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${this.appKey}`
-  //       document.head.appendChild(script)
-  //     }
-  //   })
-  // },
   mounted() {
     if (window.kakao && window.kakao.maps) {
       this.initMap()
